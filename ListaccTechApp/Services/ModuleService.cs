@@ -6,6 +6,7 @@ using ListaccTechApp.Interfaces;
 using ListaccTechApp.Models;
 using ListaccTechApp.Models.Data;
 using ListaccTechApp.ViewModels;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 
 namespace ListaccTechApp.Services
@@ -46,6 +47,59 @@ namespace ListaccTechApp.Services
            var module = await _db.Modules!.AsQueryable()
                         .Where(m => m.Name!.ToUpper().CompareTo(name.ToUpper())==0).AnyAsync();
            return module;
+        }
+
+        public async Task<string> UpdateModule(ModuleModel md)
+        {
+           var module = await _db.Modules!.Where(m => m.Id == md.Id).FirstOrDefaultAsync();
+            module!.Name = md.Name;
+            module.Description = md.Description;
+
+            foreach(var l in md.LearningPaths!)
+            {
+                LearningPathModule lpModule = new()
+                {
+                    LearningPath = l,
+                    Module = module
+                };
+                await _db.AddAsync(lpModule);
+
+
+
+            }
+
+            await SaveAll();
+
+            return "Updated";
+
+            
+
+        }
+
+        public async Task<PagedList<Module>> GetAllModules(SearchPaging props)
+        {
+            IQueryable<Module> module = Enumerable.Empty<Module>().AsQueryable();
+            var md = await _db.Modules!.OrderBy(x => x.Id).ToListAsync();
+            var result = module.Concat(md).ToList();
+            var returned = PagedList<Module>.ToPagedList(result, props.PageNumber, props.PageSize);
+            return returned;
+
+
+        }
+
+        public async Task<Module> GetModule(int Id)
+        {
+            var module = await _db.Modules!.Where(m => m.Id == Id).Include(m => m.Topics).FirstOrDefaultAsync();
+
+            return module!;
+
+        }
+
+        public async void Remove<T>(T entity) where T : class
+        {
+            _db.Remove(entity);
+            await _db.SaveChangesAsync();
+
         }
     }
 }

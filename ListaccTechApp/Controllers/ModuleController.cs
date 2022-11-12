@@ -22,7 +22,7 @@ namespace ListaccTechApp.Controllers
         private readonly IModuleService _mService;
         private readonly IMapper _mapper;
 
-        public ModuleController(MyDbContext db, IModuleService mService, IMapper mapper)        
+        public ModuleController(MyDbContext db, IModuleService mService, IMapper mapper)
         {
             _db = db;
             _mService = mService;
@@ -30,59 +30,142 @@ namespace ListaccTechApp.Controllers
         }
 
 
-        [Authorize(Roles="Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("Create")]
-        public async Task<IActionResult> CreateModule(ModuleModel module){
+        public async Task<IActionResult> CreateModule(ModuleModel module)
+        {
 
-            if(!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
 
-                return BadRequest(new{Error="invalid request"});
+                return BadRequest(new { Error = "invalid request" });
             }
             var newModule = _mapper.Map<Module>(module);
-            // Module newModule = new Module();
-            // newModule.Name  = module.Name;
-            // newModule.Description = module.Description;
 
-            if(!await _mService.IsModuleExist(module.Name!)){
 
-              try{
-                  var response =   await _mService.CreateModule(newModule);
-                  if(response != "Created"){
+            if (!await _mService.IsModuleExist(module.Name!))
+            {
 
-                    return BadRequest(new {Error=" Error Creating Module"});
+                try
+                {
+                    var response = await _mService.CreateModule(newModule);
+                    if (response != "Created")
+                    {
 
-                  }
+                        return BadRequest(new { Error = " Error Creating Module" });
 
-                  foreach(LearningPath lp in module.LearningPaths!){
+                    }
 
-                    var learnPath = await _db.LearningPaths!.Where(p => p.Id == lp.Id).FirstOrDefaultAsync();
+                    foreach (LearningPath lp in module.LearningPaths!)
+                    {
 
-                    if(learnPath != null){
+                        var learnPath = await _db.LearningPaths!.Where(p => p.Id == lp.Id).FirstOrDefaultAsync();
 
-                            LearningPathModule Lpm = new LearningPathModule{
+                        if (learnPath != null)
+                        {
+
+                            LearningPathModule Lpm = new()
+                            {
                                 Module = newModule,
                                 LearningPath = learnPath
                             };
                             _mService.Add(Lpm);
+                        }
+
+
+
                     }
 
-                  
+                    await _mService.SaveAll();
+
+                    return Ok();
 
                 }
+                catch (Exception ex)
+                {
 
-                await _mService.SaveAll();
-
-                return Ok();
-
-              }catch(Exception ex){
-
-                return BadRequest(ex);
-              }
+                    return BadRequest(ex);
+                }
 
             }
 
-            return BadRequest(new {Error = "Module Already Exist"});
-            
+            return BadRequest(new { Error = "Module Already Exist" });
+
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPut("Edit")]
+        public async Task<IActionResult> UpdateModule(ModuleModel module)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var result = await _mService.UpdateModule(module);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex);
+
+            }
+        }
+        [Authorize]
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAllModules(SearchPaging props)
+        {
+            try
+            {
+                var modules = await _mService.GetAllModules(props);
+                var result = _mapper.Map<List<ModuleModel>>(modules);
+
+                var dataList = new
+                {
+                    modules.PageSize,
+                    modules.TotalCount,
+                    modules.TotalPages,
+                    modules.CurrentPage,
+                    modules.HasNext,
+                    modules.HasPrevious
+                };
+
+                var data = new
+                {
+                    result,
+                    dataList
+                };
+
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [Authorize]
+        [HttpGet("Get/{id}")]
+        public async Task<IActionResult> GetModule(int Id)
+        {
+            try
+            {
+                var result = await _mService.GetModule(Id);
+
+                return Ok(result);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+           
         }
     }
 }

@@ -18,6 +18,8 @@ namespace ListaccTechApp.Services
             CreateMap<User, SearchPaging>();
             CreateMap<User, UserModel>();
             CreateMap<OnlineStudent, StudentDto>();
+            CreateMap<LearningPath, LearningPathModel>();
+            CreateMap<Module, ModuleModel>();
 
 
              // Mapping for Uploads

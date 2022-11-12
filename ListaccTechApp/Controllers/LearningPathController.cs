@@ -87,6 +87,44 @@ namespace ListaccTechApp.Controllers
                 return BadRequest(ex);
             }
         }
+
+        [Authorize]
+        [HttpGet("GetAll")]
+
+        public async Task<IActionResult> GetAllLearningPaths([FromQuery]SearchPaging props)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                var learningPaths = await _lpService.GetAllLearningPath(props);
+                var result = _mapper.Map<List<LearningPathModel>>(learningPaths);
+
+                var dataList = new
+                {
+                    learningPaths.PageSize,
+                    learningPaths.HasPrevious,
+                    learningPaths.HasNext,
+                    learningPaths.CurrentPage,
+                    learningPaths.TotalPages,
+                    learningPaths.TotalCount
+
+                };
+
+                var data = new { result, dataList };
+
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
         [Authorize(Roles ="Admin")]
         [HttpDelete("Delete")]
         public async Task<IActionResult> RemoveLearningPath(LearningPath lp){
@@ -100,8 +138,7 @@ namespace ListaccTechApp.Controllers
              return Ok();
 
 
-
-
         }
+        
     }
 }
