@@ -54,12 +54,20 @@ namespace ListaccTechApp.Services
            var module = await _db.Modules!.Where(m => m.Id == md.Id).FirstOrDefaultAsync();
             module!.Name = md.Name;
             module.Description = md.Description;
+            var LpModules = await _db.LearningPathModules!.Where(m => m.ModuleId == md.Id).ToListAsync();
+
+            foreach (var lm in LpModules) {
+
+                 _db.LearningPathModules!.Remove(lm);
+            }
+            await _db.SaveChangesAsync();
 
             foreach(var l in md.LearningPaths!)
             {
+                var learnpath = await _db.LearningPaths!.Where(lp => lp.Id == l.Id).FirstOrDefaultAsync();
                 LearningPathModule lpModule = new()
                 {
-                    LearningPath = l,
+                    LearningPath = learnpath,
                     Module = module
                 };
                 await _db.AddAsync(lpModule);
@@ -95,8 +103,18 @@ namespace ListaccTechApp.Services
 
         }
 
+        public async Task<string> DeleteModule(int Id)
+        {
+            var module = await _db.Modules!.Where(m => m.Id == Id).FirstOrDefaultAsync();
+            Remove<Module>(module!);
+
+            return "Deleted";
+
+        }
+
         public async void Remove<T>(T entity) where T : class
         {
+
             _db.Remove(entity);
             await _db.SaveChangesAsync();
 

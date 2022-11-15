@@ -17,6 +17,6 @@ namespace ListaccTechApp.Interfaces
         Task<bool> IsModuleExist(string name);
         void Add<T>(T entity) where T : class;
         Task<bool> SaveAll();
-        void Remove<T>(T entity) where T : class;
+       Task<string> DeleteModule(int Id);
     }
 }

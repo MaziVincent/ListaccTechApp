@@ -158,6 +158,10 @@ namespace ListaccTechApp.Controllers
             try
             {
                 var result = await _mService.GetModule(Id);
+                if(result is null)
+                {
+                    return NotFound();
+                }
 
                 return Ok(result);
 
@@ -166,6 +170,23 @@ namespace ListaccTechApp.Controllers
                 return BadRequest(ex.Message);
             }
            
+        }
+
+        [Authorize(Roles ="Admin")]
+        [HttpDelete("Delete/{Id}")]
+        public async Task<IActionResult> DeleteModule(int Id)
+        {
+            try
+            {
+               var response = await _mService.DeleteModule(Id);
+
+                return Ok(response);
+
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
