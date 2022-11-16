@@ -28,7 +28,7 @@ namespace ListaccTechApp.Services
         public async Task<PagedList<Topic>> GetAllTopics(SearchPaging props)
         {
             IQueryable<Topic> module = Enumerable.Empty<Topic>().AsQueryable();
-            var md = await _db.Topics!.OrderBy(x => x.Id).ToListAsync();
+            var md = await _db.Topics!.OrderBy(x => x.Index).ToListAsync();
             var result = module.Concat(md).ToList();
             var returned = PagedList<Topic>.ToPagedList(result, props.PageNumber, props.PageSize);
             return returned;

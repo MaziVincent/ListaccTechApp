@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ListaccTechApp.Controllers
 {
@@ -46,35 +47,34 @@ namespace ListaccTechApp.Controllers
 
            try{
 
-            _lService.Add(newLesson);
-           await _lService.SaveAll();
-           var lastLesson = await _db.Lessons!.Where(l => l.Title.CompareTo(newLesson.Title) == 0).FirstOrDefaultAsync();
-           int lastLessonId = lastLesson!.Id;
+                _lService.Add(newLesson);
+               await _lService.SaveAll();
 
-           foreach(var image in lesson.Images!){
+                if(lesson.Images != null)
+                    {
+                        var lastLesson = await _db.Lessons!.Where(l => l.Title!.CompareTo(newLesson.Title) == 0).FirstOrDefaultAsync();
+                        int lastLessonId = lastLesson!.Id;
 
-            if(image.FileName == null || image.FileName.Length == 0){
+                        foreach (var id in lesson.Images!)
+                        {
+                            LessonMedia lm = new()
+                            {
+                                MediaId = id,
+                                LessonId = lastLessonId,
 
-                return Content(" File not Selected");
-            }
+                            };
 
-            var guid = Guid.NewGuid().ToString();
-            var path = Path.Combine(_environment.WebRootPath,"images",guid + image.FileName);
+                        _lService.Add(lm);
+                       
+                        
 
-            using(FileStream stream = new FileStream(path, FileMode.Create)){
+                        }
+                    await _lService.SaveAll();
 
-                await image.CopyToAsync(stream);
-                stream.Close();
-            }
-            var media = new Media{
-                ImagePath = path,
-                LessonId = lastLessonId
-            };
-            _lService.Add(media);
-            await _lService.SaveAll();
-           }
+                }
            
-           return Ok("Created");
+           
+                 return Ok("Created");
 
            }
            catch(Exception ex){
@@ -84,5 +84,57 @@ namespace ListaccTechApp.Controllers
            }
 
         }
+
+        [Authorize(Roles ="Admin")]
+        [HttpPost("Upload")]
+        public async Task<IActionResult> UploadFile([FromForm] MediaModel model)
+        {
+            string imagePath;
+
+            if (model.Image!.FileName != null || model.Image.FileName!.Length != 0)
+            {
+                var guid = Guid.NewGuid().ToString();
+                imagePath = Path.Combine(_environment.WebRootPath, "images", guid + model.Image.FileName);
+
+                using (FileStream stream = new(imagePath, FileMode.Create))
+                {
+
+                    await model.Image.CopyToAsync(stream);
+                    stream.Close();
+                }
+
+                var media = new Media
+                {
+                    ImagePath = imagePath,
+
+                };
+
+
+                _lService.Add(media);
+                await _lService.SaveAll();
+
+                var lastMedia = await _db.Medias!.Where(x => x.ImagePath!.CompareTo(imagePath) == 0).FirstOrDefaultAsync();
+                int lastMediaId = lastMedia!.Id;
+                var data = new
+                {
+                    MediaId = lastMediaId,
+                    imagePath
+                };
+
+                return Ok(data);
+
+            }
+
+            return null!;
+            
+
+
+
+
+
+
+        }
+
+
     }
-}
+ }

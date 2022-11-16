@@ -21,6 +21,7 @@ namespace ListaccTechApp.Services
             CreateMap<LearningPath, LearningPathModel>();
             CreateMap<Module, ModuleModel>();
             CreateMap<Topic, TopicModel>();
+            CreateMap<Lesson, LessonModel>();
 
 
              // Mapping for Uploads

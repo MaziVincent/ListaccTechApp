@@ -11,8 +11,7 @@ namespace ListaccTechApp.Models
         [NotMapped]
         public IFormFile? Video { get; set; }
         public string? VideoPath {get;set;}
-        public int LessonId { get; set; }
-        public Lesson? Lesson { get; set; }
+       public ICollection<LessonMedia>? Lessons { get; set; }
 
 
     }
