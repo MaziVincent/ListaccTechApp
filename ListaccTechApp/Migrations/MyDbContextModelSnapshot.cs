@@ -107,6 +107,29 @@ namespace ListaccTechApp.Migrations
                     b.ToTable("Lessons");
                 });
 
+            modelBuilder.Entity("ListaccTechApp.Models.LessonMedia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("LessonId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MediaId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LessonId");
+
+                    b.HasIndex("MediaId");
+
+                    b.ToTable("LessonMedia");
+                });
+
             modelBuilder.Entity("ListaccTechApp.Models.Media", b =>
                 {
                     b.Property<int>("Id")
@@ -118,15 +141,10 @@ namespace ListaccTechApp.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("text");
 
-                    b.Property<int>("LessonId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("VideoPath")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LessonId");
 
                     b.ToTable("Medias");
                 });
@@ -503,7 +521,7 @@ namespace ListaccTechApp.Migrations
                     b.Navigation("Topic");
                 });
 
-            modelBuilder.Entity("ListaccTechApp.Models.Media", b =>
+            modelBuilder.Entity("ListaccTechApp.Models.LessonMedia", b =>
                 {
                     b.HasOne("ListaccTechApp.Models.Lesson", "Lesson")
                         .WithMany("Medias")
@@ -511,7 +529,15 @@ namespace ListaccTechApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ListaccTechApp.Models.Media", "Media")
+                        .WithMany("Lessons")
+                        .HasForeignKey("MediaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Lesson");
+
+                    b.Navigation("Media");
                 });
 
             modelBuilder.Entity("ListaccTechApp.Models.Topic", b =>
@@ -598,6 +624,11 @@ namespace ListaccTechApp.Migrations
             modelBuilder.Entity("ListaccTechApp.Models.Lesson", b =>
                 {
                     b.Navigation("Medias");
+                });
+
+            modelBuilder.Entity("ListaccTechApp.Models.Media", b =>
+                {
+                    b.Navigation("Lessons");
                 });
 
             modelBuilder.Entity("ListaccTechApp.Models.Module", b =>

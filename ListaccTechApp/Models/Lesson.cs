@@ -14,6 +14,6 @@ namespace ListaccTechApp.Models
         public int Index { get; set;}
         public int TopicId { get; set; }
         public Topic? Topic  {get; set;}
-        public ICollection<Media>? Medias { get; set; }
+        public ICollection<LessonMedia>? Medias { get; set; }
     }
 }
