@@ -3,6 +3,7 @@ using System;
 using ListaccTechApp.Models.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ListaccTechApp.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221117151439_LessonMedia")]
+    partial class LessonMedia
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,16 +112,21 @@ namespace ListaccTechApp.Migrations
 
             modelBuilder.Entity("ListaccTechApp.Models.LessonMedia", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<int>("LessonId")
                         .HasColumnType("integer");
 
                     b.Property<int>("MediaId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("integer");
+                    b.HasKey("Id");
 
-                    b.HasKey("LessonId", "MediaId");
+                    b.HasIndex("LessonId");
 
                     b.HasIndex("MediaId");
 
@@ -519,13 +527,13 @@ namespace ListaccTechApp.Migrations
             modelBuilder.Entity("ListaccTechApp.Models.LessonMedia", b =>
                 {
                     b.HasOne("ListaccTechApp.Models.Lesson", "Lesson")
-                        .WithMany("lessonMedias")
+                        .WithMany("Medias")
                         .HasForeignKey("LessonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ListaccTechApp.Models.Media", "Media")
-                        .WithMany("lessonMedias")
+                        .WithMany("Lessons")
                         .HasForeignKey("MediaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -618,12 +626,12 @@ namespace ListaccTechApp.Migrations
 
             modelBuilder.Entity("ListaccTechApp.Models.Lesson", b =>
                 {
-                    b.Navigation("lessonMedias");
+                    b.Navigation("Medias");
                 });
 
             modelBuilder.Entity("ListaccTechApp.Models.Media", b =>
                 {
-                    b.Navigation("lessonMedias");
+                    b.Navigation("Lessons");
                 });
 
             modelBuilder.Entity("ListaccTechApp.Models.Module", b =>

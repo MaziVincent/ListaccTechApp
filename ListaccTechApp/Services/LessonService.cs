@@ -24,9 +24,38 @@ namespace ListaccTechApp.Services
             _db.Add(entity);
         }
 
-        public Task<string> UpdateLesson(Lesson topic)
+        public async Task<string> UpdateLesson(int Id, LessonModel lesson)
         {
-            throw new NotImplementedException();
+            var newLesson = await _db.Lessons!.Where(x => x.Id == Id).FirstOrDefaultAsync();
+            newLesson!.Title = lesson.Title;
+            newLesson.SubTitle = lesson.SubTitle;
+            newLesson.TopicId = lesson.TopicId;
+            newLesson.Index = lesson.Index; 
+            newLesson.Body = lesson.Body;
+
+            var lessonMedia = await _db.LessonMedias.Where(x => x.LessonId == Id).ToListAsync();
+
+            foreach(var lm in lessonMedia)
+            {
+                _db.LessonMedias.Remove(lm);
+            }
+
+            foreach(var m in lesson.Medias!)
+            {
+                LessonMedia Media = new()
+                {
+                    LessonId = newLesson.Id,
+                    MediaId = m.Id
+                };
+
+                _db.LessonMedias.Add(Media);
+
+            }
+
+            await SaveAll();
+
+            return "Updated";
+
         }
 
         public async Task<PagedList<Lesson>> GetAllLessons(SearchPaging props)
@@ -41,7 +70,7 @@ namespace ListaccTechApp.Services
 
         public async Task<Lesson> GetLesson(int Id)
         {
-            var lesson = await _db.Lessons!.Where(l => l.Id == Id).Include(x => x.Medias)!.ThenInclude(x => x.Media!.ImagePath).FirstOrDefaultAsync();
+            var lesson = await _db.Lessons!.Where(l => l.Id == Id).Include(x => x.lessonMedias)!.ThenInclude(x => x.Media!.ImagePath).FirstOrDefaultAsync();
 
             return lesson!;
 

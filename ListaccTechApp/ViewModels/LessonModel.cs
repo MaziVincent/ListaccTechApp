@@ -1,4 +1,6 @@
-﻿namespace ListaccTechApp.ViewModels
+﻿using ListaccTechApp.Models;
+
+namespace ListaccTechApp.ViewModels
 {
     public class LessonModel
     {
@@ -8,6 +10,6 @@
         public int Index { get; set; }
         public int TopicId { get; set; }
 
-        public List<int>? Images { get; set; }
+        public List<Media>? Medias { get; set; }
     }
 }
