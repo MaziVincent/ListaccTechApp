@@ -11,7 +11,7 @@ namespace ListaccTechApp.Interfaces
     public interface ILessonService
     {
         void Add<T>(T entity) where T : class;
-        Task<string> UpdateLesson(Lesson topic);
+        Task<string> UpdateLesson(int id, LessonModel lesson);
         Task<PagedList<Lesson>> GetAllLessons(SearchPaging props);
         Task<Lesson> GetLesson(int Id);
         Task<string> DeleteLesson(int Id);

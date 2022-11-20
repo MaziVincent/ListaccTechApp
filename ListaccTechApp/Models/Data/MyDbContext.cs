@@ -32,9 +32,19 @@ namespace ListaccTechApp.Models.Data
               modelBuilder.Entity<LearningPathStudent>().HasOne(x => x.OnlineStudent)
                                                     .WithMany(x => x.LearningPathStudents)
                                                     .HasForeignKey(x => x.Online_StudentId);
-
-
+            modelBuilder.Entity<LessonMedia>().HasKey(x => new{x.LessonId, x.MediaId});
+            modelBuilder.Entity<LessonMedia>().HasOne(x => x.Lesson)
+                                               .WithMany(x => x.lessonMedias)
+                                               .HasForeignKey(x => x.LessonId);
            
+            modelBuilder.Entity<LessonMedia>().HasOne(x => x.Media)
+                                               .WithMany(x => x.lessonMedias)
+                                               .HasForeignKey(x => x.MediaId);
+
+            //modelBuilder.Entity<UserRole>().HasKey(x=>new{x.UserId, x.RoleId});
+
+
+
 
 
         }
@@ -48,6 +58,7 @@ namespace ListaccTechApp.Models.Data
         public DbSet<Module>? Modules { get; set; }
         public DbSet<Topic>? Topics { get; set; }
         public DbSet<Lesson>? Lessons {get; set;}
+        public DbSet<LessonMedia> LessonMedias { get; set; }
         public DbSet<Progress>? Progress {get; set;}
 
            
