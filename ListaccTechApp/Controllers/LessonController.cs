@@ -101,7 +101,7 @@ namespace ListaccTechApp.Controllers
         }
 
         [Authorize(Roles ="Admin")]
-        [HttpPost("Update/{id}")]
+        [HttpPut("Update/{id}")]
         public async Task<IActionResult> UpdateLesson(int Id, LessonModel model)
         {
             if (!ModelState.IsValid)
