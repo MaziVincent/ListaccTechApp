@@ -9,6 +9,8 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ListaccTechApp.Services
 {
@@ -22,11 +24,11 @@ namespace ListaccTechApp.Services
             _config = config;
             _context = context;
         }
-        public async Task<string> GenerateToken(UserLogin login, int Id, string type){
+        public async Task<string> GenerateToken(string Email, int Id, string type){
 
             var tokenClaims = new List<Claim> {};
             tokenClaims.Add(new Claim("UserID", Id.ToString()));
-            tokenClaims.Add(new Claim("Email", login.EmailAddress!));
+            tokenClaims.Add(new Claim("Email", Email!));
             tokenClaims.Add(new Claim(ClaimTypes.Role, type));
 
             var keyByte = Encoding.UTF8.GetBytes(_config.GetSection("Tokens:Key").Value!);
@@ -40,8 +42,13 @@ namespace ListaccTechApp.Services
             var tokenHandler = new JwtSecurityTokenHandler();
             var token =  tokenHandler.CreateToken(tokenDescriptor);
             var tokenString =  tokenHandler.WriteToken(token);
+            var newToken = new
+            {
+                tokenString = tokenString,
+                expire_at = token.ValidTo
+            };
 
-            return tokenString;
+            return JsonConvert.SerializeObject(newToken);
 
             
 

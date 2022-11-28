@@ -8,6 +8,6 @@ namespace ListaccTechApp.Interfaces
 {
     public interface ITokenGenerator
     {
-        Task<string> GenerateToken(UserLogin login, int Id, string type);
+        Task<string> GenerateToken(string Email, int Id, string type);
     }
 }
