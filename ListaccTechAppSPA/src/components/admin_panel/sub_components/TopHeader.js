@@ -43,14 +43,14 @@ const TopHeader = () => {
               </button>
             </div>
             {!navbar ? (
-              <div className='md:flex justify-start lg:w-0 lg:flex-1 sm:hidden'>
+              <div className='md:flex-1 justify-start lg:w-0 lg:flex-1 sm:hidden'>
                 <Link href='#'>
                   <span className='sr-only text-white'>Your Company</span>
                   <img className='h-8 w-auto sm:h-10' src={Logo} alt='' />
                 </Link>
               </div>
             ) : (
-              <div className='lg:flex-1'>
+              <div className='lg:flex-1 md:flex-1'>
                 <h3>Admin</h3>
               </div>
             )}
