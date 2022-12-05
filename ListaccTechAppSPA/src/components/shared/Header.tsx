@@ -15,11 +15,11 @@ function Header() {
       <nav className=" justify-end">
         <div className="max-w-screen-xl px-4 py-3 mx-auto md:px-6">
           <div className="flex items-center">
-            <ul className="flex flex-row mt-0 mr-6 space-x-8 text-base font-medium">
+            <ul className="flex flex-row mt-0 mr-6 space-x-8 text-sm font-medium text-base">
               <li>
                 <a
                   href="/LearningPaths"
-                  className="text-gray-900 dark:text-white hover:underline"
+                  className="text-gray-900 dark:text-white hover:border-b-2 pb-1.5"
                   aria-current="page"
                 >
                   Learning Paths
@@ -28,7 +28,7 @@ function Header() {
               <li>
                 <a
                   href="/About"
-                  className="text-gray-900 dark:text-white hover:underline"
+                  className="text-gray-900 dark:text-white hover:border-b-2 pb-1.5"
                 >
                   About
                 </a>
@@ -36,7 +36,7 @@ function Header() {
               <li>
                 <a
                   href="/Community"
-                  className="text-gray-900 dark:text-white hover:underline"
+                  className="text-gray-900 dark:text-white hover:border-b-2 pb-1.5"
                 >
                   Community
                 </a>
@@ -44,7 +44,8 @@ function Header() {
               <li>
                 <a
                   href="/SignIn"
-                  className="text-gray-900 dark:text-white hover:underline"
+                  className="text-gray-900 dark:text-white hover:border-b-2 
+                  pb-1.5 border-gray-200"
                 >
                   Sign In
                 </a>
@@ -52,9 +53,9 @@ function Header() {
             </ul>
             <button
               type="button"
-              className="bg-blue-700 hover:bg-blue-800 focus:ring-4 
+              className="bg-blue-400 hover:bg-blue-500 focus:ring-4 
               focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm
-               px-5 py-2.5 text-center
+               px-5 py-2.5 text-center text-base
                mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Get started
