@@ -1,18 +1,15 @@
 import { Link } from 'react-router-dom'
-import {useState} from 'react';
 import Logo from '../../../assets/images/LogoTrans2.png'
-const Nav = () => {
-  const [openNav, setOpenNav] = useState(true)
+const Nav = ({ navbar, setNavbar }) => {
   function closeSidebar() {
-    setOpenNav(false)
+    setNavbar(false)
   }
 
-  
   return (
     <>
-      {openNav && (
+      {navbar && (
         <aside
-          className='sidebar w-52 min-h-screen bg-[#111827] fixed md:block sm:hidden z-10'
+          className='sidebar w-52 min-h-screen bg-[#111827] fixed md:block sm:hidden z-10 animate-pulse'
           aria-label='Sidebar'
         >
           <div className='overflow-y-auto py-4 px-3 max-h-full'>
