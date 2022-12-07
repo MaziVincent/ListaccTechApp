@@ -3,25 +3,23 @@ import { useState } from 'react'
 import Nav from '../sub_components/Nav'
 import Logo from '../../../assets/images/LogoTrans2.png'
 
-const TopHeader = () => {
-  const [navbar, setNavbar] = useState(false)
+const TopHeader = ({ navbar, setNavbar }) => {
   const [smallNav, setSmallNav] = useState(false)
 
   const showSideNave = () => {
     setNavbar(!navbar)
   }
   const removeHeader = () => {
-    console.log('good')
     setSmallNav(false)
   }
 
   return (
     <>
-      {navbar && <Nav />}
+      {navbar && <Nav navbar={navbar} setNavbar={setNavbar} />}
       <div className='relative bg-[#111827] text-white -z-1'>
         <div className='mx-auto max-w-7xl px-2 sm:px-3'>
           <div className='flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10'>
-            <div className='sm:hidden md:block'>
+            <div className='hidden xsm:hidden sm:hidden md:block'>
               <button
                 className='p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border'
                 onClick={showSideNave}
@@ -42,19 +40,12 @@ const TopHeader = () => {
                 </svg>
               </button>
             </div>
-            {!navbar ? (
-              <div className='md:flex-1 justify-start lg:w-0 lg:flex-1 sm:hidden'>
-                <Link href='#'>
-                  <span className='sr-only text-white'>Your Company</span>
-                  <img className='h-8 w-auto sm:h-10' src={Logo} alt='' />
-                </Link>
-              </div>
-            ) : (
-              <div className='lg:flex-1 md:flex-1'>
-                <h3>Admin</h3>
-              </div>
-            )}
-            <div className='flex justify-end -my-2 -mr-2 md:hidden'>
+
+            <div className='lg:flex-1 md:flex-1'>
+              <h3>Admin</h3>
+            </div>
+
+            <div className='sm:flex justify-end -my-2 -mr-2 md:hidden lg:hidden'>
               <button
                 type='button'
                 className='inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500'
