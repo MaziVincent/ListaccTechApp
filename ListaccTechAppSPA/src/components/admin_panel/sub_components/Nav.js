@@ -9,7 +9,7 @@ const Nav = ({ navbar, setNavbar }) => {
     <>
       {navbar && (
         <aside
-          className='sidebar w-52 min-h-screen bg-[#111827] fixed md:block sm:hidden z-10 animate-pulse'
+          className='sidebar w-52 min-h-screen bg-[#111827] fixed md:block sm:hidden z-10 animate-pulse xsm:hidden'
           aria-label='Sidebar'
         >
           <div className='overflow-y-auto py-4 px-3 max-h-full'>

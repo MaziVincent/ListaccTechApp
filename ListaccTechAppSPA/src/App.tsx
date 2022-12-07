@@ -12,13 +12,14 @@ function App() {
   
   return (
     <div className="container box-border ">
+      <Routes>
+          <Route path="/admin" element={<AdminHome />} />
+      </Routes>
       <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/admin" element={<AdminHome />} />
           <Route path="/LearningPaths" element={<LearningPaths />} />
           <Route path="/LearningPaths/:Id" element={<LearningPathDetails />} />
-      
         </Routes>
 
       <Footer /> 
