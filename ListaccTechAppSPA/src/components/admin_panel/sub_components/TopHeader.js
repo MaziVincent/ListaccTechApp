@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import Nav from '../sub_components/Nav'
 import Logo from '../../../assets/images/LogoTrans2.png'
 
 const TopHeader = ({ navbar, setNavbar }) => {
@@ -15,30 +14,52 @@ const TopHeader = ({ navbar, setNavbar }) => {
 
   return (
     <>
-      {navbar && <Nav navbar={navbar} setNavbar={setNavbar} />}
       <div className='relative bg-[#111827] text-white -z-1'>
         <div className='mx-auto max-w-7xl px-2 sm:px-3'>
           <div className='flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10'>
             <div className='hidden xsm:hidden sm:hidden md:block'>
-              <button
-                className='p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border'
-                onClick={showSideNave}
-              >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  className='w-6 h-6 text-white'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
-                  strokeWidth={2}
+              {!navbar ? (
+                <button
+                  className='p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border'
+                  onClick={showSideNave}
                 >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M4 6h16M4 12h16M4 18h16'
-                  />
-                </svg>
-              </button>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    className='w-6 h-6 text-white'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M4 6h16M4 12h16M4 18h16'
+                    />
+                  </svg>
+                </button>
+              ) : (
+                <button
+                  className='p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border'
+                  onClick={showSideNave}
+                >
+                  <svg
+                    className='h-6 w-6 text-white '
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth='1.5'
+                    stroke='currentColor'
+                    aria-hidden='true'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M6 18L18 6M6 6l12 12'
+                    />
+                  </svg>
+                </button>
+              )}
             </div>
 
             <div className='lg:flex-1 md:flex-1'>

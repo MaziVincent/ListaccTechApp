@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom'
 import Logo from '../../../assets/images/LogoTrans2.png'
-const Nav = ({ navbar, setNavbar }) => {
-  function closeSidebar() {
-    setNavbar(false)
-  }
+const Nav = ({ navbar }) => {
 
   return (
     <>
@@ -21,30 +18,12 @@ const Nav = ({ navbar, setNavbar }) => {
                   alt='ListaccTech Logo'
                 />
               </Link>
-              <div className=' text-center p-3 mouse'>
-                <span className='cursor-pointer' onClick={closeSidebar}>
-                  <svg
-                    className='h-6 w-6 text-white '
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    strokeWidth='1.5'
-                    stroke='currentColor'
-                    aria-hidden='true'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      d='M6 18L18 6M6 6l12 12'
-                    />
-                  </svg>
-                </span>
-              </div>
+              
             </div>
             <ul className='space-y-2'>
               <li>
                 <Link
-                  to='#'
+                  to='/admin'
                   className='flex items-center p-2 text-base font-normal text-white hover:text-[#000] rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
                 >
                   <svg
@@ -62,7 +41,7 @@ const Nav = ({ navbar, setNavbar }) => {
               </li>
               <li>
                 <Link
-                  to='#'
+                  to='/admin/learningPaths'
                   className='flex items-center p-2 text-base font-normal text-white hover:text-[#000] rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
                 >
                   <svg
@@ -85,7 +64,7 @@ const Nav = ({ navbar, setNavbar }) => {
               </li>
               <li>
                 <Link
-                  to='#'
+                  to='/admin/modules'
                   className='flex items-center p-2 text-base font-normal text-white hover:text-[#000] rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
                 >
                   <svg
@@ -165,7 +144,7 @@ const Nav = ({ navbar, setNavbar }) => {
                     ></path>
                   </svg>
                   <span className='flex-1 ml-3 whitespace-nowrap'>
-                    Products
+                    Topics
                   </span>
                 </Link>
               </li>

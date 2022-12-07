@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
-import TopHeader from '../sub_components/TopHeader'
+import { useOutletContext } from 'react-router-dom'
 
 const Landing = () => {
-  const [navbar, setNavbar] = useState(true)
+  const [navbar] = useOutletContext()
+  // console.log(navbar);
   const [count, setCount] = useState(0)
   useEffect(() => {
     setTimeout(() => {
@@ -11,7 +12,6 @@ const Landing = () => {
   }, [])
   return (
     <div className=' '>
-      <TopHeader navbar={navbar} setNavbar={setNavbar} />
       <div className='landing-container flex justify-end'>
         <div
           className={
