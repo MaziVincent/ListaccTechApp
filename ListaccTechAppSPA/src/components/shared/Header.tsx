@@ -1,69 +1,168 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import logo from "../../assets/images/LogoTrans2.png";
 import "../../assets/css/header.css";
+import Button from "./Button";
 
 function Header() {
+  let links = [
+    {
+      linkName: "LearningPaths",
+      path:'/LearningPaths'
+    },
+    {
+      linkName: "About",
+      path:'/About'
+    },
+    {
+      linkName: "Community",
+      path:'/Community'
+    },
+    {
+      linkName: "SignIn",
+      path:'/SignIn'
+    },
+  ];
+
+  const [navbar, setNavbar] = useState(false);
+
   return (
-    <header className=" flex flex-row justify-between 
-    bg-white px-2 sm:px-4 py-2.5 
-     fixed w-full z-20 top-0 left-0 ">
-      <div className=" flex items-center">
-        <a href="#" className="flex items-center">
-          <img src={logo} className="h-6 mr-3 sm:h-10" alt="Listacc Logo" />
-        </a>
-      </div>
-      <nav className=" justify-end">
-        <div className="max-w-screen-xl px-4 py-3 mx-auto md:px-6">
-          <div className="flex items-center">
-            <ul className="flex flex-row mt-0 mr-6 space-x-8 text-sm font-medium text-base">
-              <li>
-                <a
-                  href="/LearningPaths"
-                  className="text-gray-900 dark:text-white hover:border-b-2 pb-1.5"
-                  aria-current="page"
-                >
-                  Learning Paths
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/About"
-                  className="text-gray-900 dark:text-white hover:border-b-2 pb-1.5"
-                >
-                  About
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/Community"
-                  className="text-gray-900 dark:text-white hover:border-b-2 pb-1.5"
-                >
-                  Community
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/SignIn"
-                  className="text-gray-900 dark:text-white hover:border-b-2 
-                  pb-1.5 border-gray-200"
-                >
-                  Sign In
-                </a>
-              </li>
-            </ul>
-            <button
-              type="button"
-              className="bg-blue-400 hover:bg-blue-500 focus:ring-4 
-              focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm
-               px-5 py-2.5 text-center text-base
-               mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Get started
-            </button>
-          </div>
-        </div>
-      </nav>
-    </header>
+    // <header
+    //   className=" flex flex-row justify-between 
+    // bg-white px-2 sm:px-4 py-2.5 
+    //  fixed w-full z-20 top-0 left-0 shadow "
+    // >
+    //   <div className=" flex items-center mb-6 ml-3 md:mb-0">
+    //     <Link to="/" className="flex items-center ">
+    //       <img src={logo} className="h-6 mr-3 sm:h-10" alt="Listacc Logo" />
+    //     </Link>
+    //   </div>
+    //   <nav className=" justify-end">
+    //     <div className="max-w-screen-xl px-4 py-3 mx-auto md:px-6">
+    //       <div className="flex items-center">
+    //         <ul className="flex flex-row mt-0 mr-6 space-x-8 text-sm font-medium text-base">
+    //            {
+
+    //             links.map((link)=>(
+    //               <li key={link.linkName}> 
+    //                  <Link
+    //                   to={link.path}
+    //                   className="text-gray-900 dark:text-white hover:border-b-4 duration-500 pb-1.5"
+    //                   aria-current="page"
+    //                 >
+    //               {link.linkName}
+    //             </Link>
+    //               </li>
+    //             ))
+                
+    //             }
+                
+    //         </ul>
+    //         <Button value={"Get Started"} /> 
+    //       </div>
+    //     </div>
+    //   </nav>
+    // </header>
+
+
+    <nav className="w-full bg-purple-500 shadow">
+            <div className="justify-between px-4 mx-auto lg:max-w-xl7 md:items-center md:flex md:px-8">
+                <div>
+                    <div className="flex items-center justify-between py-3 md:py-5 md:block">
+                        <a href="javascript:void(0)">
+                            <h2 className="text-2xl font-bold text-white">LOGO</h2>
+                        </a>
+                        <div className="md:hidden">
+                            <button
+                                className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
+                                onClick={() => setNavbar(!navbar)}
+                            >
+                                {navbar ? (
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="w-6 h-6 text-white"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                    >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                ) : (
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="w-6 h-6 text-white"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth={2}
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M4 6h16M4 12h16M4 18h16"
+                                        />
+                                    </svg>
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div
+                        className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
+                            navbar ? "block" : "hidden"
+                        }`}
+                    >
+                        <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+                            <li className="text-black hover:text-indigo-200">
+                                <a href="javascript:void(0)">Home</a>
+                            </li>
+                            <li className="text-black hover:text-indigo-200">
+                                <a href="javascript:void(0)">Blog</a>
+                            </li>
+                            <li className="text-black hover:text-indigo-200">
+                                <a href="javascript:void(0)">About US</a>
+                            </li>
+                            <li className="text-black hover:text-indigo-200">
+                                <a href="javascript:void(0)">Contact US</a>
+                            </li>
+                        </ul>
+
+                        <div className="mt-3 space-y-2 lg:hidden md:inline-block">
+                    <a
+                        href="javascript:void(0)"
+                        className="inline-block w-full px-4 py-2 text-center text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
+                    >
+                        Sign in
+                    </a>
+                    <a
+                        href="javascript:void(0)"
+                        className="inline-block w-full px-4 py-2 text-center text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
+                    >
+                        Sign up
+                    </a>
+                </div>
+                    </div>
+                </div>
+                <div className="hidden space-x-2 md:inline-block">
+                    <a
+                        href="javascript:void(0)"
+                        className="px-4 py-2 text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
+                    >
+                        Sign in
+                    </a>
+                    <a
+                        href="javascript:void(0)"
+                        className="px-4 py-2 text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
+                    >
+                        Sign up
+                    </a>
+                </div>
+            </div>
+        </nav>
   );
 }
 
