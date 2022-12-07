@@ -7,21 +7,26 @@ import Header from "./components/shared/Header";
 import Footer from "./components/shared/Footer";
 import AdminHome from "./components/admin_panel/main_components/AdminHome";
 import LearningPathDetails from "./components/home/LearningPathDetails";
+import Main from "./components/home/Main";
+import HomeLayout from "./components/home/HomeLayout";
 
 function App() {
   
   return (
     <div className="container box-border ">
-      <Header />
+      
         <Routes>
-          <Route path="/" element={<Home />} />
           <Route path="/admin" element={<AdminHome />} />
-          <Route path="/LearningPaths" element={<LearningPaths />} />
-          <Route path="/LearningPaths/:Id" element={<LearningPathDetails />} />
+          <Route path="/" element={<HomeLayout />}>
+            <Route path="/LearningPaths" element={<LearningPaths />} />
+            <Route path="/LearningPaths/:Id" element={<LearningPathDetails />} />
+            <Route index element={<Home /> } />
+          </Route>
+          
       
         </Routes>
 
-      <Footer /> 
+      
 
       </div>
     
