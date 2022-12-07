@@ -5,6 +5,7 @@ import {  Route, Routes } from "react-router-dom";
 import LearningPaths from "./components/home/LearningPaths";
 import Header from "./components/shared/Header";
 import Footer from "./components/shared/Footer";
+import AdminHome from "./components/admin_panel/main_components/AdminHome";
 import LearningPathDetails from "./components/home/LearningPathDetails";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/admin" element={<AdminHome />} />
           <Route path="/LearningPaths" element={<LearningPaths />} />
           <Route path="/LearningPaths/:Id" element={<LearningPathDetails />} />
       
