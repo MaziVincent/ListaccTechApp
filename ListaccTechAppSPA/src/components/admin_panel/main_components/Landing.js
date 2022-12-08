@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import { useOutletContext } from 'react-router-dom'
+// import { useOutletContext } from 'react-router-dom'
 
 const Landing = () => {
-  const [navbar] = useOutletContext()
+  // const [navbar] = useOutletContext()
   // console.log(navbar);
   const [count, setCount] = useState(0)
   useEffect(() => {
@@ -11,26 +11,20 @@ const Landing = () => {
     }, 1000)
   }, [])
   return (
-    <div className=' '>
-      <div className='landing-container flex justify-end'>
-        <div
-          className={
-            navbar
-              ? 'bg-red-400 w-[85vw] h-screen sm:w-full md:w-[85vw]'
-              : 'bg-red-400 w-full h-screen sm:w-full md:w-full'
-          }
-        >
-          <div className='grid gap-1 grid-cols-4 px-6'>
-            <div className='flex bg-blue-400'>
+    <div className=''>
+      <div className='landing-container flex'>
+        <div className='bg-red-400 w-full  sm:w-full md:w-full mt-14'>
+          <div className='grid gap-1 grid-cols-4 px-6 mt-5'>
+            <div className='flex bg-blue-400 p-8'>
               <h4>Currently 10 leaning paths</h4>
             </div>
-            <div className='flex bg-blue-400'>
+            <div className='flex bg-blue-400 p-8'>
               <h4>Currently 100 moduls</h4>
             </div>
-            <div className='flex bg-blue-400'>
+            <div className='flex bg-blue-400 p-8'>
               <h4>Currently 1000 topics</h4>
             </div>
-            <div className='flex bg-blue-400'>
+            <div className='flex bg-blue-400 p-8'>
               <h4>Currently 10,000 users</h4>
             </div>
           </div>

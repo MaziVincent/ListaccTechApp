@@ -14,7 +14,7 @@ const TopHeader = ({ navbar, setNavbar }) => {
 
   return (
     <>
-      <div className='relative bg-[#111827] text-white -z-1'>
+      <div className='fixed w-full bg-[#111827] text-white '>
         <div className='mx-auto max-w-7xl px-2 sm:px-3'>
           <div className='flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10'>
             <div className='hidden xsm:hidden sm:hidden md:block'>

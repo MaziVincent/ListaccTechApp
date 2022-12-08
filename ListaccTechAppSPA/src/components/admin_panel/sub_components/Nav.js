@@ -4,9 +4,8 @@ const Nav = ({ navbar }) => {
 
   return (
     <>
-      {navbar && (
         <aside
-          className='sidebar w-52 min-h-screen bg-[#111827] fixed md:block sm:hidden z-10 animate-pulse xsm:hidden'
+          className='sidebar w-52 mt-12 min-h-screen hidden bg-[#111827] fixed md:block sm:hidden z-10 animate-pulse xsm:hidden'
           aria-label='Sidebar'
         >
           <div className='overflow-y-auto py-4 px-3 max-h-full'>
@@ -193,7 +192,6 @@ const Nav = ({ navbar }) => {
             </ul>
           </div>
         </aside>
-      )}
     </>
   )
 }
