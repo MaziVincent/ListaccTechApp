@@ -9,7 +9,7 @@ const AdminHome = () => {
 
   return (
     <>
-      <div className='w-screen h-screen bg-cover bg-fixed bg-worldmap dark:bg-blue-300'>
+      <div className='w-screen h-screen bg-cover bg-fixed bg-worldmap dark:bg-blue-300 overflow-x-hidden'>
         <TopHeader navbar={navbar} setNavbar={setNavbar} />
         <div
           className={

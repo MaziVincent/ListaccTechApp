@@ -165,7 +165,7 @@ const Nav = ({ navbar }) => {
                       clipRule='evenodd'
                     ></path>
                   </svg>
-                  <span className='flex-1 ml-3 whitespace-nowrap'>Sign In</span>
+                  <span className='flex-1 ml-3 whitespace-nowrap'>Lesson</span>
                 </Link>
               </li>
               <li>
@@ -186,7 +186,7 @@ const Nav = ({ navbar }) => {
                       clipRule='evenodd'
                     ></path>
                   </svg>
-                  <span className='flex-1 ml-3 whitespace-nowrap'>Sign Up</span>
+                  <span className='flex-1 ml-3 whitespace-nowrap'>Students</span>
                 </Link>
               </li>
             </ul>
