@@ -24,7 +24,7 @@ const AdminHome = () => {
             </div>
           )}
           <div className='w-full col-span-2 sm:col-span-2 xsm:col-span-2 md:col-span-1'>
-            <Outlet context={[navbar]} />
+            <Outlet />
           </div>
         </div>
         <Footer />
