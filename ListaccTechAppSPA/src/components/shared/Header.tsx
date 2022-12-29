@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/LogoTrans2.png";
 import "../../assets/css/header.css";
+
 import Button from "./Button";
 
 function Header() {
@@ -18,55 +19,24 @@ function Header() {
       linkName: "Community",
       path: "/Community",
     },
+    {
+      linkName: "SignIn",
+      path: "/SignIn",
+    },
+    
     
   ];
 
   const [navbar, setNavbar] = useState(false);
 
-  console.log(navbar)
 
   return (
-    // <header
-    //   className=" flex flex-row justify-between
-    // bg-white px-2 sm:px-4 py-2.5
-    //  fixed w-full z-20 top-0 left-0 shadow "
-    // >
-    //   <div className=" flex items-center mb-6 ml-3 md:mb-0">
-    //     <Link to="/" className="flex items-center ">
-    //       <img src={logo} className="h-6 mr-3 sm:h-10" alt="Listacc Logo" />
-    //     </Link>
-    //   </div>
-    //   <nav className=" justify-end">
-    //     <div className="max-w-screen-xl px-4 py-3 mx-auto md:px-6">
-    //       <div className="flex items-center">
-    //         <ul className="flex flex-row mt-0 mr-6 space-x-8 text-sm font-medium text-base">
-    //            {
+    
 
-    //             links.map((link)=>(
-    //               <li key={link.linkName}>
-    //                  <Link
-    //                   to={link.path}
-    //                   className="text-gray-900 dark:text-white hover:border-b-4 duration-500 pb-1.5"
-    //                   aria-current="page"
-    //                 >
-    //               {link.linkName}
-    //             </Link>
-    //               </li>
-    //             ))
-
-    //             }
-
-    //         </ul>
-    //         <Button value={"Get Started"} />
-    //       </div>
-    //     </div>
-    //   </nav>
-    // </header>
-
-    <nav className="w-screen bg-white shadow">
-      <div className="justify-between px-4 mx-auto lg:max-w-xl7 md:items-center md:flex md:px-10">
+    <nav className="w-full bg-white fixed shadow lg:pl-4">
+      <div className="justify-between px-4  mx-auto lg:max-w-xl7 md:items-center md:flex md:px-2">
         <div>
-          <div className="flex items-center justify-between py-3 md:py-5 md:block">
+          <div className="flex items-center sm:shrink-0 justify-between py-3 md:py-5 md:block">
             <Link to="/">
               <img src={logo} className="h-6 mr-3 sm:h-10" alt="Listacc Logo" />
             </Link>
@@ -108,9 +78,9 @@ function Header() {
             </div>
           </div>
         </div>
-        <div>
+        <div className="w-4/5 flex ">
           <div
-            className={`flex-1 justify-self-center md:flex  pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
+            className={`flex-1 justify-self-center md:justify-end items-center md:flex gap-8 pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
               navbar ? "block" : "hidden"
             }`}
           >
@@ -128,36 +98,14 @@ function Header() {
               ))}
             </ul>
 
-            <div className="mt-3 space-y-2 md:flex pr-4">
-              <Link
-                to="/SignIn"
-                className="inline-block w-full px-4 py-2 text-center text-white bg-gray-600 rounded-md shadow hover:bg-gray-800"
-              >
-                Sign in
-              </Link>
-              <Link
-                to="javascript:void(0)"
-                className="inline-block w-full px-4 py-2 text-center text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
-              >
-                Get Started
-              </Link>
+            <div className="mt-3 space-y-2  md:flex  pr-4 justify-center justify-self-center ">
+             
+               <Button value="Get Started" click="Registeration" /> 
+          
             </div>
           </div>
         </div>
-        {/* <div className=" space-x-4 md:inline-block">
-          <a
-            href="javascript:void(0)"
-            className="px-4 py-2 text-white  bg-gray-600 rounded-md shadow hover:bg-gray-800"
-          >
-            Sign in
-          </a>
-          <a
-            href="javascript:void(0)"
-            className="px-4 py-2 text-gray-800  bg-white rounded-md shadow hover:bg-gray-100"
-          >
-            Get Started
-          </a>
-        </div> */}
+        
       </div>
     </nav>
   );

@@ -7,9 +7,9 @@ function Home() {
     
 
   
-      <div className="container pt-20 box-border ">
+      <>
         <Main />
-      </div>
+      </>
       
     
 

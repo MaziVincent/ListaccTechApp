@@ -9,11 +9,12 @@ import AdminHome from "./components/admin_panel/main_components/AdminHome";
 import LearningPathDetails from "./components/home/LearningPathDetails";
 import Main from "./components/home/Main";
 import HomeLayout from "./components/home/HomeLayout";
+import Registeration from "./components/auth/registeration";
 
 function App() {
   
   return (
-    <div className="container box-border ">
+    <div className=" box-border border-4 w-full ">
       
         <Routes>
           <Route path="/admin" element={<AdminHome />} />
@@ -22,13 +23,14 @@ function App() {
             <Route path="/LearningPaths/:Id" element={<LearningPathDetails />} />
             <Route index element={<Home /> } />
           </Route>
+          <Route path="/Registeration" element={<Registeration/>} />
           
       
         </Routes>
 
       
 
-      </div>
+    </div>
     
      
   

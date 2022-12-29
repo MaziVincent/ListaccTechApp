@@ -3,13 +3,15 @@ import Footer from "../shared/Footer";
 import Header from "../shared/Header";
 
 const HomeLayout = () => {
-    return ( <>
-        <Header />
-            <Outlet />
-        <Footer />
-    
-    
-    </> );
-}
- 
+  return (
+    <>
+      <Header />
+      <div className=" pt-28  bg-gray-50 dark:bg-gray-700  ">
+        <Outlet />
+      </div>
+      <Footer />
+    </>
+  );
+};
+
 export default HomeLayout;
