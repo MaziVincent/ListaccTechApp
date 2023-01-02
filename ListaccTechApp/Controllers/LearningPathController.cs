@@ -28,7 +28,7 @@ namespace ListaccTechApp.Controllers
         }
         [Authorize(Roles ="Admin")]
         [HttpPost("Create")]
-        public async Task<IActionResult> CreateLearningPath(LearningPathModel lp){
+        public async Task<IActionResult> CreateLearningPath([FromForm] LearningPathModel lp){
 
             if(!ModelState.IsValid){
 
@@ -133,7 +133,7 @@ namespace ListaccTechApp.Controllers
                 return BadRequest();
             }
 
-             _lpService.Remove(lp);
+            _lpService.Remove(lp);
              
              return Ok();
 

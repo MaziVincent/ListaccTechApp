@@ -25,7 +25,30 @@ namespace ListaccTechApp.Services
             newLp.Name = lp.Name!;
             newLp.Description = lp.Description!;
 
+
+            string imagePath;
+
+            if (lp.LearningPathAvatar!.FileName != null || lp.LearningPathAvatar.FileName!.Length != 0)
+            {
+                var guid = Guid.NewGuid().ToString();
+                string fileName = lp.LearningPathAvatar.FileName.Trim();
+                imagePath = Path.Combine("wwwroot", "images" + guid + fileName);
+
+                using (FileStream stream = new(imagePath, FileMode.Create))
+                {
+
+                    await lp.LearningPathAvatar.CopyToAsync(stream);
+                    stream.Close();
+                }
+
+                newLp.ImagePath = imagePath;
+
+            }
+
+           
+
             await _context.LearningPaths!.AddAsync(newLp);
+
             await _context.SaveChangesAsync();
 
             return "Created";

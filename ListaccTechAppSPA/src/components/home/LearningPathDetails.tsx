@@ -9,12 +9,12 @@ const LearningPathDetails = () => {
 
   return (
     <div className=" pt-10 p-10 w-full flex flex-col gap-8 justify-center items-center ">
-      <h1 className="text-4xl font-bold">
+      <h1 className="text-4xl font-bold text-center">
         {" "}
         Learning <span className="text-orange-500">Path </span>
         {Id}
       </h1>
-      <div className="flex flex-col w-3/5 items-center gap-8">
+      <div className="flex flex-col w-11/12 md:w-3/5 items-center gap-8">
         <p className="text-lg text-gray-500">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla velit
           quasi reprehenderit officiis ducimus aliquid, voluptatibus aperiam
