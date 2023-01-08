@@ -3,13 +3,11 @@ import "./App.css";
 import Home from "./components/home/Home";
 import {  Route, Routes } from "react-router-dom";
 import LearningPaths from "./components/home/LearningPaths";
-import Header from "./components/shared/Header";
-import Footer from "./components/shared/Footer";
 import AdminHome from "./components/admin_panel/main_components/AdminHome";
 import LearningPathDetails from "./components/home/LearningPathDetails";
-import Main from "./components/home/Main";
 import HomeLayout from "./components/home/HomeLayout";
 import Registeration from "./components/auth/registeration";
+import Login from "./components/auth/Login";
 
 function App() {
   
@@ -24,6 +22,7 @@ function App() {
             <Route index element={<Home /> } />
           </Route>
           <Route path="/Registeration" element={<Registeration/>} />
+          <Route path="/Login" element={<Login/>} />
           
       
         </Routes>

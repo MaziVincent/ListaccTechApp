@@ -11,6 +11,9 @@ using Swashbuckle.AspNetCore.Filters;
 using System.Data;
 using System.Text;
 
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -77,6 +80,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // Learn more about configuring Swagger/OpenListaccTechApp at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("corsPolicy",
+                      build =>
+                      {
+                          build.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
+                      });
+});
+
 //for swagger to use jwt
 builder.Services.AddSwaggerGen(options =>
 {
@@ -100,6 +113,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
+app.UseCors("corsPolicy");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

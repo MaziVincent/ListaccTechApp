@@ -1,11 +1,75 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {useForm, SubmitHandler} from "react-hook-form";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 const Registeration = () => {
+
+  const navigate = useNavigate();
+  interface FormInput  {
+    FirstName:string,
+    LastName:string,
+    Gender:string,
+    PhoneNumber:string,
+    Email:string,
+    Password:string,
+    ConfirmPassword:string
+    
+  }
+
+ 
+  const {register, handleSubmit,watch, formState:{errors}} = useForm<FormInput>({
+    mode:'onTouched'
+  });
+  const submit:SubmitHandler<FormInput> = (data:any) => {
+
+    //post registeration form 
+    fetch("https://localhost:7188/api/Student/Create",{
+      method:'POST',
+      headers: {'Content-Type':'application/json'},
+      body:JSON.stringify(data)
+    }).then( (res)=>{
+      const response = res.json()
+      if(res.ok){
+
+        toast.success("Registered Successfully", {
+          theme: "colored"
+        })
+        setTimeout(()=>{
+          
+          navigate('/Login');
+        },3000);
+        
+        
+      }else{
+        response.then(data => {
+          toast.error(data.error)
+        })
+        
+       
+       
+      }
+      
+     
+     // navigate('/Login');
+    })
+    .catch((error)=>{
+      toast.error(error)
+    })
+  };
+
+const password = watch('Password');
+
+
   return (
     <div className="mt-1 pt-10 h-screen bg-gray-50">
+      <ToastContainer />
       <div className="md:flex md:flex-col justify-center items-center md:gap-6">
         <div className="md:col-span-1">
-          <div className="px-4 sm:px-0 ">
+          <div className="px-6 flex flex-col justify-center items-start ">
             <h3 className="text-3xl font-extrabold leading-6 text-gray-700">
               Sign Up
             </h3>
@@ -14,177 +78,158 @@ const Registeration = () => {
             </p>
           </div>
         </div>
-        <div className="mt-5 md:col-span-2 md:mt-0">
-          <form action="#" method="POST">
+        <div className="mt-5 md:col-span-2 w-full lg:w-1/2 md:w-3/4 md:mt-0">
+          <form onSubmit={handleSubmit(submit)}>
             <div className="overflow-hidden shadow-md sm:rounded-md">
-              <div className="bg-white px-4 py-5 sm:p-6">
+              <div className="bg-white px-4 mx-2 md:mx-0 py-5 sm:p-6">
                 <div className="grid grid-cols-6 gap-6">
-                  <div className="col-span-6 sm:col-span-3">
+                  <div className="col-span-6  sm:col-span-3">
                         <label
-                        htmlFor="first-name"
+                        htmlFor="firstName"
                         className="block text-sm font-medium text-gray-700"
                         >
                         First name
                         </label>
                         <input
                         type="text"
-                        name="firstName"
                         id="firstName"
-                        className="mt-1 block w-full rounded-sm border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        {...register("FirstName",{required:true})}
+                        autoComplete="first-name"
+                        className="mt-1 block w-full p-2  rounded-md border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
+                        {errors.FirstName && <p className="text-sm text-red-400"> first name is required</p>}
                   </div>
 
                   <div className="col-span-6 sm:col-span-3">
                     <label
-                      htmlFor="last-name"
+                      htmlFor="lastName"
                       className="block text-sm font-medium text-gray-700"
                     >
                       Last name
                     </label>
                     <input
                       type="text"
-                      name="last-name"
-                      id="last-name"
+                      {...register("LastName",{required:true})}
+                      id="lastName"
                       autoComplete="family-name"
-                      className="mt-1 block w-full rounded-sm border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full p-2 rounded-md border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    
                     />
+                     {errors.LastName && <p className="text-sm text-red-400"> last name is required</p>}
+                  </div>
+
+                  <div className="col-span-6 sm:col-span-3">
+                    <label
+                      htmlFor="gender"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Gender
+                    </label>
+                    <select
+                      id="gender"
+                      {...register("Gender",{required:'gender is required'})}
+                      autoComplete="gender"
+                      defaultValue={"DEFAULT"}
+                      className="mt-1 block w-full rounded-md border border-gray-300 bg-white p-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    >
+                     
+                      <option value="DEFAULT" disabled>Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
+                    {errors.Gender && <p className="text-sm text-red-400"> {errors.Gender.message} </p>}
                   </div>
 
                   <div className="col-span-6 sm:col-span-3">
                         <label
-                        htmlFor="first-name"
+                        htmlFor="phonenumber"
                         className="block text-sm font-medium text-gray-700"
                         >
                         Phone Number
                         </label>
                         <input
-                        type="phone"
-                        name="firstName"
-                        id="firstName"
-                        className="mt-1 block w-full rounded-sm border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        type="tel"
+                        {...register("PhoneNumber",{required:true})}
+                        id="phoneNumber"
+                        autoComplete="phone number"
+                        className="mt-1 block w-full p-2 rounded-md border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         />
-                  </div>
-
-                  <div className="col-span-6 sm:col-span-3">
-                        <label
-                        htmlFor="first-name"
-                        className="block text-sm font-medium text-gray-700"
-                        >
-                        First name
-                        </label>
-                        <input
-                        type="text"
-                        name="firstName"
-                        id="firstName"
-                        className="mt-1 block w-full rounded-sm border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        />
+                         {errors.PhoneNumber && <p className="text-sm text-red-400"> phone number is required</p>}
                   </div>
 
                   <div className="col-span-6 sm:col-span-4">
                     <label
-                      htmlFor="email-address"
+                      htmlFor="email"
                       className="block text-sm font-medium text-gray-700"
                     >
                       Email address
                     </label>
                     <input
-                      type="text"
-                      name="email-address"
-                      id="email-address"
-                      className="mt-1 block w-full rounded-sm border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      type="email"
+                      {...register("Email",{required:true})}
+                      id="emailAddress"
+                      className="mt-1 block w-full p-2 rounded-md border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
+                     {errors.Email && <p className="text-sm text-red-400"> email address is required</p>}
                   </div>
+
+                  
 
                   <div className="col-span-6 sm:col-span-3">
                     <label
-                      htmlFor="country"
+                      htmlFor="password"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      Country
-                    </label>
-                    <select
-                      id="country"
-                      name="country"
-                      autoComplete="country-name"
-                      className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    >
-                      <option>United States</option>
-                      <option>Canada</option>
-                      <option>Mexico</option>
-                    </select>
-                  </div>
-
-                  <div className="col-span-6">
-                    <label
-                      htmlFor="street-address"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Street address
+                      Password
                     </label>
                     <input
-                      type="text"
-                      name="street-address"
-                      id="street-address"
-                      autoComplete="street-address"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      type="password"
+                      {...register("Password",{required:true})}
+                      id="password"
+                      
+                      className="mt-1 block w-full p-2 rounded-md border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    
                     />
+                     {errors.Password && <p className="text-sm text-red-400"> password is required</p>}
                   </div>
 
-                  <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                  <div className="col-span-6  sm:col-span-3">
                     <label
-                      htmlFor="city"
+                      htmlFor="confirmPassword"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      City
+                      Confirm Password
                     </label>
                     <input
-                      type="text"
-                      name="city"
-                      id="city"
-                      autoComplete="address-level2"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      type="password"
+                      {...register("ConfirmPassword",{required:'confirm password is required',
+                      validate:(value)=> value === password || "passwords do not match"
+                      
+                      })}
+                      id="confirmPassword"
+                    
+                      className="mt-1 block w-full p-2 rounded-md border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    
                     />
+                     {errors.ConfirmPassword && <p className="text-sm text-red-400"> {errors.ConfirmPassword.message} </p>}
                   </div>
 
-                  <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                    <label
-                      htmlFor="region"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      State / Province
-                    </label>
-                    <input
-                      type="text"
-                      name="region"
-                      id="region"
-                      autoComplete="address-level1"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
 
-                  <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                    <label
-                      htmlFor="postal-code"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      ZIP / Postal code
-                    </label>
-                    <input
-                      type="text"
-                      name="postal-code"
-                      id="postal-code"
-                      autoComplete="postal-code"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
+
+                  
+
+                  
+
+                  
+                     
                 </div>
               </div>
-              <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+              <div className="bg-gray-50 px-4 py-3 text-right flex justify-center  sm:px-6">
                 <button
                   type="submit"
                   className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
-                  Save
+                  Submit
                 </button>
               </div>
             </div>

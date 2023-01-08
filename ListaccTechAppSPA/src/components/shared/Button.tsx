@@ -4,7 +4,7 @@ const Button = (props:any) => {
 
   const navigate = useNavigate();
   const path = props.click;
-  console.log(path)
+  
    // props.name
 
     return ( 
