@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/LogoTrans2.png";
 import "../../assets/css/header.css";
 
@@ -21,13 +21,15 @@ function Header() {
     },
     {
       linkName: "SignIn",
-      path: "/SignIn",
+      path: "/Login",
     },
     
     
   ];
 
   const [navbar, setNavbar] = useState(false);
+  const navigate = useNavigate();
+  const goto = () => navigate('Registeration')
 
 
   return (
@@ -100,7 +102,7 @@ function Header() {
 
             <div className="mt-3 space-y-2  md:flex  pr-4 justify-center justify-self-center ">
              
-               <Button value="Get Started" click="Registeration" /> 
+               <Button value="Get Started" click={goto} /> 
           
             </div>
           </div>

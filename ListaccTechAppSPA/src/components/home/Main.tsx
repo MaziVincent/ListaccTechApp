@@ -26,8 +26,8 @@ const Main = () => {
           Application Development and Cloud Computing{" "}
         </p>
         <div className="flex flex-row justify-center items-center">
-          <button
-            type="button"
+          <Link
+            to="/Registeration"
             className="bg-orange-500 hover:bg-orange-400 focus:ring-4 
               focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm
                px-5 py-2.5 text-center text-xl
@@ -35,7 +35,7 @@ const Main = () => {
                dark:focus:ring-blue-800" 
           >
             Get Started{" "}
-          </button>
+          </Link>
         </div>
       </section>
       <section className="flex flex-row justify-center items-center w-full">

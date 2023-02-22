@@ -1,19 +1,88 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import {useForm, SubmitHandler} from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import "react-toastify/dist/ReactToastify.css";
 import logo from "../../assets/images/LogoTrans2.png";
+import { useState } from "react";
+import useAuth from "../../hooks/useAuth";
+
+import axios from "../../api/axios";
+
+const Login_Url = "/api/Auth/Login";
 
 const Login = () => {
-  const notify = () => toast("hello");
-  interface Login  {
-    Email:String,
-    Password:String
-
+  const navigate = useNavigate();
+  const {auth, setAuth } = useAuth();
+  const [errorMsg, setErrorMsg] = useState("");
+  interface Login {
+    EmailAddress: String;
+    Password: String;
   }
-  const {register,watch,handleSubmit,formState:{errors}} = useForm<Login>({
-    mode:'onTouched'
-  })
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Login>({
+    mode: "onTouched",
+  });
+
+  const submit: SubmitHandler<Login> = async (data, e) => {
+    e?.preventDefault();
+    
+
+    try {
+      const response = await axios.post(Login_Url, JSON.stringify(data), {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: false,
+      });
+     // console.log(JSON.stringify(response.data));
+      const token = response.data.token;
+      const currentUser = response.data.currentUser;
+      setAuth(response.data);
+      auth.currentUser.role === 'OnlineStudent' ?
+      navigate("/Dashboard")
+      :navigate("/admin")
+      
+    } catch (error: any) {
+        console.log(error)
+      if (!error.response) {
+        setErrorMsg("No Server Response");
+
+        toast.error("No Server Response");
+      }
+      
+      switch (error.response.status) {
+        case 400: {
+          setErrorMsg("missing username or password");
+
+          toast.error("missing username or password");
+          break;
+        }
+        case 401: {
+          setErrorMsg("unauthorized user");
+
+          toast.error("unauthorized user");
+          break;
+        }
+        case 404: {
+            setErrorMsg("user does not exist");
+  
+            toast.error("user does not exist");
+            break;
+          }
+        
+        default: {
+          setErrorMsg("Login failed");
+
+          toast.error("Login failed");
+        }
+      }
+    }
+
+    // console.log(data);
+  };
+
   return (
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
@@ -33,7 +102,8 @@ const Login = () => {
             </Link>
           </p>
         </div>
-        <form className="mt-8 space-y-6">
+        {errorMsg && <p className="text-sm text-red-400">{errorMsg}</p>}
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit(submit)}>
           <input type="hidden" name="remember" value="true" />
           <div className="-space-y-px rounded-md shadow-sm">
             <div className="mb-1">
@@ -42,13 +112,29 @@ const Login = () => {
               </label>
               <input
                 id="email-address"
-                name="Email"
+                {...register("EmailAddress", {
+                  required: "email required",
+                  pattern: {
+                    value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                    message: "invalid email address",
+                  },
+                })}
                 type="email"
-                autoComplete="email"
+                autoComplete="off"
                 required
-                className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                className={`relative block w-full appearance-none rounded-none rounded-t-md border 
+                border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm
+               ${
+                 errors.EmailAddress &&
+                 "focus:border-red-500 focus:ring-red-500 border-red-300"
+               } `}
                 placeholder="Email address"
               />
+              {errors.EmailAddress && (
+                <span className="text-sm text-red-400">
+                  {errors.EmailAddress.message}
+                </span>
+              )}
             </div>
             <div>
               <label htmlFor="password" className="sr-only">
@@ -56,13 +142,24 @@ const Login = () => {
               </label>
               <input
                 id="password"
-                name="Password"
+                {...register("Password", { required: "password required" })}
                 type="password"
                 autoComplete="current-password"
                 required
-                className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                className={`relative block w-full appearance-none rounded-none rounded-b-md 
+                border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 
+                focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm
+                ${
+                  errors.Password &&
+                  "focus:border-red-500 focus:ring-red-500 border-red-300"
+                } `}
                 placeholder="Password"
               />
+              {errors.Password && (
+                <span className="text-sm text-red-400">
+                  {errors.Password.message}
+                </span>
+              )}
             </div>
           </div>
 

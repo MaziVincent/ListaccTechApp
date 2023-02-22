@@ -62,6 +62,7 @@ namespace ListaccTechApp.Controllers
                     var type = _oService.Strip(currentUser.GetType().ToString());
                     var tokenString = await _tokenGenerator.GenerateToken(login.EmailAddress!, currentUser.Id, type);
                     var theCurrentUser =  _mapper.Map<CurrentUser>(currentUser);
+                    theCurrentUser.Role = type;
 
                     var token = new {
                         token = tokenString,

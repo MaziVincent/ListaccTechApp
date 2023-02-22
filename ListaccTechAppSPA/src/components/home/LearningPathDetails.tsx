@@ -1,6 +1,4 @@
 import { useParams } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookOpen } from "@fortawesome/free-solid-svg-icons";
 import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
 
 

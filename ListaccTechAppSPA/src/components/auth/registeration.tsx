@@ -25,7 +25,7 @@ const Registeration = () => {
     mode:'onTouched'
   });
   const submit:SubmitHandler<FormInput> = (data:any) => {
-
+    
     //post registeration form 
     fetch("https://localhost:7188/api/Student/Create",{
       method:'POST',
@@ -52,8 +52,7 @@ const Registeration = () => {
        
        
       }
-      
-     
+   
      // navigate('/Login');
     })
     .catch((error)=>{
@@ -74,7 +73,7 @@ const password = watch('Password');
               Sign Up
             </h3>
             <p className="mt-4 text-md text-gray-600">
-              Or <Link to="login" className="text-orange-600"> Sign in to your existing account. </Link>
+              Or <Link to="/Login" className="text-orange-600"> Sign in to your existing account. </Link>
             </p>
           </div>
         </div>

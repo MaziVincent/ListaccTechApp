@@ -48,6 +48,7 @@ namespace ListaccTechApp.Controllers
         }
 
         [Authorize]
+        [AllowAnonymous]
         [HttpGet("Get/{id}")]
         public async Task<IActionResult> GetLearningPath(int Id){
             if(Id == 0){
@@ -89,6 +90,7 @@ namespace ListaccTechApp.Controllers
         }
 
         [Authorize]
+        [AllowAnonymous]
         [HttpGet("GetAll")]
 
         public async Task<IActionResult> GetAllLearningPaths([FromQuery]SearchPaging props)
