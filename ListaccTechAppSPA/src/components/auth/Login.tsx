@@ -40,9 +40,9 @@ const Login = () => {
       const token = response.data.token;
       const currentUser = response.data.currentUser;
       setAuth(response.data);
-      auth.currentUser.role === 'OnlineStudent' ?
-      navigate("/Dashboard")
-      :navigate("/admin")
+      auth.currentUser.role === 'Admin' ?
+      navigate("/admin")
+      :navigate("/Dashboard")
       
     } catch (error: any) {
         console.log(error)

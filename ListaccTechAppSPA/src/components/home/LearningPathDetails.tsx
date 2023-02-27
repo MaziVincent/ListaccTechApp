@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
 
 
+
 const LearningPathDetails = () => {
   const { Id } = useParams();
 

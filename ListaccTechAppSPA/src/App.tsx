@@ -25,13 +25,15 @@ function App() {
   }
   
   return (
-    <div className=" box-border border-4 w-full ">
+    <div className=" box-border w-full ">
       
         <Routes>
           {/* Admin */}
-          <Route element={<RequireAuth allowedRole={Roles.Admin} />} >
+          {/* <Route element={<RequireAuth allowedRole={Roles.Admin} />} >
             <Route path="/admin" element={<AdminHome />} />
-          </Route>
+          </Route> */}
+
+          <Route path="/admin" element={<AdminHome />} />
 
 
           <Route path="/" element={<HomeLayout />}>
