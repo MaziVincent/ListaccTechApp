@@ -35,10 +35,9 @@ const LearningPaths = () => {
   },[])
   
   return (
-    <div className="w-full pt-28 p-10 flex flex-col items-center justify-center gap-6">
-      <h1 className="text-4xl font-bold">
-        {" "}
-        All Learning <span className="text-orange-500">Paths</span>{" "}
+    <section className="w-full h-screen pt-28 p-10 flex flex-col dark:text-zink-100 items-center justify-start gap-6">
+      <h1 className=" text-4xl font-bold dark:text-white"> 
+      All Learning <span className="text-orange-500">Paths</span>{" "}
       </h1>
       {paths.length ? (
 
@@ -82,7 +81,7 @@ const LearningPaths = () => {
       </div>
   ) : (<p> Error Loading Learning Paths  </p>)
 } 
-    </div>
+    </section>
   );
 };
 

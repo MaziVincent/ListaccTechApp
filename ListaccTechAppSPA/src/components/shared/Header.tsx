@@ -12,7 +12,7 @@ function Header() {
   let location = "/";
   const { auth } = useAuth();
 
-  auth.currentUser ? (location = "Dashboard") : (location = "/");
+  auth.currentUser.role ==='OnlineStudent' ? (location = "Dashboard") : (location = "/");
 
   let links = [
     {
@@ -58,7 +58,7 @@ function Header() {
   }
 
   return (
-    <nav className="w-full bg-white fixed shadow lg:pl-4 lg:pr-8">
+    <nav className="w-full bg-white fixed shadow lg:pl-4 lg:pr-8 dark:bg-gray-700">
       <div className="justify-between px-4  mx-auto lg:max-w-xl7 md:items-center md:flex md:px-2">
         <div>
           <div className="flex items-center sm:shrink-0 justify-between py-3 md:py-5 md:block">

@@ -9,8 +9,8 @@ const Main = () => {
   
   return (
     <main
-      className="flex flex-col justify-between bg-gray-50 dark:bg-gray-700 pt-5 pb-10
-        dark:bg-gray-900  gap-y-12"
+      className="flex flex-col justify-between text-gray-500 bg-gray-50 dark:text-zinc-100 pt-5 pb-10
+        dark:bg-gray-700  gap-y-12"
     >
       <section className="flex flex-col justify-center items-center w-full gap-y-4 ">
         <div className="w-3/4 lg:w-3/5">
@@ -20,7 +20,7 @@ const Main = () => {
             Starts Here!
           </h2>
         </div>
-        <p className="text-center w-3/4 lg:w-3/5 text-lg text-gray-500">
+        <p className="text-center w-3/4 lg:w-3/5 text-lg  ">
           Become a powerful Software Engineer in Front-End Web Development,
           Back-End Web Development, Full Stack Web Development, Mobile
           Application Development and Cloud Computing{" "}
@@ -99,37 +99,37 @@ const Main = () => {
         <h3 className="text-3xl text-center font-bold"> Everything You Need To Know </h3>
         <div className="flex flex-row w-4/5 justify-center flex-wrap  gap-5">
           
-          <div className="flex flex-col  basis-3/5 md:basis-1/3 lg:basis-1/5 items-center shadow-md bg-white p-6 rounded-md">
+          <div className="flex flex-col  basis-3/5 md:basis-1/3 lg:basis-1/5 items-center shadow-md bg-white dark:bg-gray-800 p-6 rounded-md">
             <div>
               <img src={book} alt="" />
             </div>
             <h3 className="text-xl font-bold">Front-End</h3>
           </div>
-          <div className="flex flex-col basis-3/5 md:basis-1/3 lg:basis-1/5 items-center shadow-md bg-white p-6 rounded-md">
+          <div className="flex flex-col basis-3/5 md:basis-1/3 lg:basis-1/5 items-center shadow-md bg-white dark:bg-gray-800 p-6 rounded-md">
             <div>
               <img src={book} alt="" />
             </div>
             <h3 className="text-xl font-bold">Front-End</h3>
           </div>
-          <div className="flex flex-col basis-3/5 md:basis-1/3 lg:basis-1/5 items-center shadow-md bg-white p-6 rounded-md">
+          <div className="flex flex-col basis-3/5 md:basis-1/3 lg:basis-1/5 items-center shadow-md dark:bg-gray-800 bg-white p-6 rounded-md">
             <div>
               <img src={book} alt="" />
             </div>
             <h3 className="text-xl font-bold">Front-End</h3>
           </div>
-          <div className="flex flex-col basis-3/5 md:basis-1/3 lg:basis-1/5 items-center shadow-md bg-white p-6 rounded-md">
+          <div className="flex flex-col basis-3/5 md:basis-1/3 lg:basis-1/5 items-center shadow-md dark:bg-gray-800 bg-white p-6 rounded-md">
             <div>
               <img src={book} alt="" />
             </div>
             <h3 className="text-xl font-bold">Front-End</h3>
           </div>
-          <div className="flex flex-col basis-3/5 md:basis-1/3 lg:basis-1/5 items-center bg-white shadow-md p-6 rounded-md">
+          <div className="flex flex-col basis-3/5 md:basis-1/3 lg:basis-1/5 items-center bg-white dark:bg-gray-800 shadow-md p-6 rounded-md">
             <div>
               <img src={book} alt="" />
             </div>
             <h3 className="text-xl font-bold">Front-End</h3>
           </div>
-          <div className="flex flex-col basis-3/5 md:basis-1/3 lg:basis-1/5 items-center shadow-md bg-white p-6 rounded-md">
+          <div className="flex flex-col basis-3/5 md:basis-1/3 lg:basis-1/5 items-center shadow-md bg-white dark:bg-gray-800 p-6 rounded-md">
             <div>
               <img src={book} alt="" />
             </div>
@@ -143,11 +143,11 @@ const Main = () => {
           </Link>
         </div>
       </section>
-      <section className="flex flex-col  items-center justify-center bg-white pt-10 gap-8 pb-5">
+      <section className="flex flex-col  items-center justify-center bg-white dark:bg-gray-800 pt-10 gap-8 pb-5">
         <h3 className="text-center text-3xl  font-bold"> Testimonials</h3>
         <div className="flex flex-col lg:flex-row justify-between w-11/12 gap-10 ">
           <div className="flex flex-row justify-start gap-3 shadow p-3">
-            <div className="flex w-2/5 rounded-full border-2 h-auto items-center justify-center">
+            <div className="flex flex-col w-2/5  h-full items-center justify-start">
             <img src={book} alt="" className="rounded-full w-full object-cover " />
             </div>
             <article className="text-justify flex flex-col">
@@ -160,7 +160,7 @@ const Main = () => {
             </article>
           </div>
           <div className="flex flex-row justify-evenly gap-3 shadow p-3">
-            <div className=" flex w-2/5 rounded-full border-2 h-auto items-center justify-center  ">
+            <div className=" flex flex-col w-2/5  h-full items-center justify-start ">
             <img src={book} alt="" className="rounded-full w-full object-cover  " />
             </div>
             <article className="text-justify flex flex-col">

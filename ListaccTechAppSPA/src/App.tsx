@@ -16,6 +16,8 @@ import Lesson from "./components/dashboard/Lesson";
 import Page404 from "./components/shared/404";
 import RequireAuth from "./hooks/RequireAuth";
 import UnAuthorized from "./components/shared/UnAuthorized";
+import Landing from "./components/admin_panel/main_components/Landing";
+import AdminLearningPath from "./components/admin_panel/main_components/AdminLearningPath";
 
 function App() {
 
@@ -25,22 +27,51 @@ function App() {
   }
   
   return (
-    <div className="container box-border ">
+  
+    <div className=" box-border w-full ">
       
-        <Routes>
+      <Routes>
+        {/* Admin */}
+        {/* <Route element={<RequireAuth allowedRole={Roles.Admin} />} >
           <Route path="/admin" element={<AdminHome />} />
-          <Route path="/" element={<HomeLayout />}>
-            <Route path="/LearningPaths" element={<LearningPaths />} />
-            <Route path="/LearningPaths/:Id" element={<LearningPathDetails />} />
-            <Route index element={<Home /> } />
+        </Route> */}
+
+        <Route path="/admin" element={<AdminHome />} >
+          <Route index element={<Landing />} />
+          <Route path="/admin/AdminLearningPath" element={<AdminLearningPath />} />
+        </Route>
+
+
+        <Route path="/" element={<HomeLayout />}>
+          <Route path="/LearningPaths" element={<LearningPaths />} />
+          <Route path="/LearningPaths/:Id" element={<LearningPathDetails />} />
+          <Route index element={<Home /> } />
+
+
+          {/* student paths */}
+          <Route element={<RequireAuth allowedRole={Roles.OnlineStudent} />} >
+            <Route path="/Dashboard" element={<Dashboard/>} />
+            <Route path="/Path" element={<Path/>} />
+            <Route path="/Module" element={<Module/>} />
+            <Route path="/Topic" element={<Topic/>} />
+            <Route path="/Lesson" element={<Lesson/>} />
           </Route>
-          
-      
-        </Routes>
+        </Route>
+        
+        <Route path="/Registeration" element={<Registeration/>} />
+        <Route path="/Login" element={<Login/>} />
+        <Route path="/404" element={<Page404/>} />
+        <Route path="/UnAuthorized" element={<UnAuthorized />} />
+        
+    
+      </Routes>
 
+    
+
+  </div>
       
 
-      </div>
+     
     
      
   
