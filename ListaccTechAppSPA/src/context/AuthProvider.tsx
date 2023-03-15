@@ -1,14 +1,14 @@
-import { createContext,useState ,FC} from "react";
+import { createContext,useState } from "react";
 
 type userContextState ={
-    auth:{currentUser:any, token:any } ;
+    auth:{currentUser:any, token:string, refreshToken:string, expires_at:string } ;
     setAuth:( data:any) => void
 }
 
 
 const values:userContextState = {
 
-    auth:{currentUser:{}, token:{} },
+    auth:{currentUser:{}, token:"", refreshToken:"", expires_at:"" },
     setAuth:() =>{}
 }
 type ContextProviderProps = {
@@ -19,7 +19,8 @@ type ContextProviderProps = {
 
 export const AuthProvider  = ({children}:ContextProviderProps) => {
     const [auth, setAuth] = useState(values.auth);
-    console.log(auth)
+    
+    console.log(auth.expires_at)
     
     return (
         

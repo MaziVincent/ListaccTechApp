@@ -1,50 +1,53 @@
 import Button from "../shared/Button";
 import book from "../../assets/images/book.png";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "../../api/axios";
+import { useState} from "react";
+
+import useFetch from "../../hooks/useFetch";
 
 const LearningPaths = () => {
   const baseUrl = 'https://localhost:7188/api/LearningPath/GetAll'
   const navigate = useNavigate();
-  const [paths, setPaths] = useState<any[]>([])
   const goto = () => navigate('LearningPathDetails');
 
-  useEffect(() => {
-    let isLoaded = true;
-    const controller = new AbortController();
-    const getLearningPaths = async ()=>{
+  const {data, isLoading, error } = useFetch(baseUrl);
+  
 
-      try{
-        const response = await axios.get(baseUrl,{
-            signal:controller.signal
-        });
-        console.log(response.data);
-        isLoaded && setPaths(response.data.result)
-        console.log(paths);
-      }catch(error){
-        console.log(error)
-      }
-    }
-    getLearningPaths();
+  // useEffect(() => {
+  //   let isLoaded = true;
+  //   const controller = new AbortController();
+  //   const getLearningPaths = async ()=>{
 
-    return () =>{
-      isLoaded = false;
-      controller.abort();
-    }
-  },[])
+  //     try{
+  //       const response = await axios.get(baseUrl,{
+  //           signal:controller.signal
+  //       });
+  //       console.log(response.data);
+  //       isLoaded && setPaths(response.data.result)
+  //       console.log(paths);
+  //     }catch(error){
+  //       console.log(error)
+  //     }
+  //   }
+  //   getLearningPaths();
+
+  //   return () =>{
+  //     isLoaded = false;
+  //     controller.abort();
+  //   }
+  // },[])
   
   return (
     <section className="w-full h-screen pt-28 p-10 flex flex-col dark:text-zink-100 items-center justify-start gap-6">
       <h1 className=" text-4xl font-bold dark:text-white"> 
       All Learning <span className="text-orange-500">Paths</span>{" "}
       </h1>
-      {paths.length ? (
+      {data? (
 
         <div className=" flex flex-col gap-5 justify-center items-center  ">
-          { paths.map((path, i) =>
+          { data.map((path:any, i:number) =>
           
-          <div className="flex flex-col gap-5 justify-center items-center md:items-evenly  lg:w-3/4 p-10 shadow" key={i}>
+          <div className="flex flex-col gap-5 justify-center items-center md:items-evenly rounded dark:bg-gray-500 lg:w-3/4 p-10 shadow" key={i}>
           <div className="flex flex-row justify-between items-center pb-0.5 border-b-2">
             <div className="flex md:flex-row flex-col justify-start items-center border-3 gap-5 ">
               <div

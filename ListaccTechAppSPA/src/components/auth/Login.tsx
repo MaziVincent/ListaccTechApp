@@ -37,12 +37,22 @@ const Login = () => {
         withCredentials: false,
       });
      // console.log(JSON.stringify(response.data));
-      const token = response.data.token;
-      const currentUser = response.data.currentUser;
+      
+      console.log(response.data)
+
       setAuth(response.data);
-      auth.currentUser.role === 'Admin' ?
-      navigate("/admin")
-      :navigate("/Dashboard")
+      switch(response.data.currentUser.role){
+        case "Admin" :
+          navigate("/admin")
+          break;
+        case "OnlineStudent" :
+          navigate("/Dashboard")
+          break;
+        default :
+        toast.error("An error Occured During Login");
+      }
+      
+    
       
     } catch (error: any) {
         console.log(error)

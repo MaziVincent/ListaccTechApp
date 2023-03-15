@@ -32,13 +32,12 @@ function App() {
       
       <Routes>
         {/* Admin */}
-        {/* <Route element={<RequireAuth allowedRole={Roles.Admin} />} >
-          <Route path="/admin" element={<AdminHome />} />
-        </Route> */}
-
-        <Route path="/admin" element={<AdminHome />} >
-          <Route index element={<Landing />} />
-          <Route path="/admin/AdminLearningPath" element={<AdminLearningPath />} />
+        
+        <Route element={<RequireAuth allowedRole={Roles.Admin} />} >
+          <Route path="/admin" element={<AdminHome />} >
+            <Route index element={<Landing />} />
+            <Route path="/admin/AdminLearningPath" element={<AdminLearningPath />} />
+          </Route>
         </Route>
 
 

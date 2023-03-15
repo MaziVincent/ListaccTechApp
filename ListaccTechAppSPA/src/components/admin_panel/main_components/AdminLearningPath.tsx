@@ -5,6 +5,7 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import Modal from '@mui/material/Modal';
 import CloseIcon from '@mui/icons-material/Close';
 import {useForm, SubmitHandler} from "react-hook-form";
+import {useQuery} from 'react-query';
 
 import {useLocation} from 'react-router-dom'
 import { useState } from 'react';
@@ -147,7 +148,7 @@ const AdminLearningPath = () => {
                               Phone Number
                           </th>
                           <th scope="col" className="px-6 py-3">
-                              <span className="sr-only">Edit</span>
+                              Actions
                           </th>
                       </tr>
                   </thead>
@@ -170,42 +171,8 @@ const AdminLearningPath = () => {
                               <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
                           </td>
                       </tr>
-                      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                          <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                              Microsoft Surface Pro
-                          </th>
-                          <td className="px-6 py-4">
-                              White
-                          </td>
-                          <td className="px-6 py-4">
-                              Laptop PC
-                          </td>
-                          <td className="px-6 py-4">
-                              $1999
-                          </td>
-                          <td className="px-6 py-4 text-right">
-                              <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                          </td>
-                      </tr>
-                      <tr className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                          <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                              Magic Mouse 2
-                          </th>
-                          <td className="px-6 py-4">
-                              Black
-                          </td>
-                          <td className="px-6 py-4">
-                              Accessories
-                          </td>
-                          <td className="px-6 py-4">
-                              $99
-                          </td>
-                          <td className="px-6 py-4 text-right">
-                              <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                              <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
-    
-                          </td>
-                      </tr>
+                      
+                      
                   </tbody>
               </table>
     
