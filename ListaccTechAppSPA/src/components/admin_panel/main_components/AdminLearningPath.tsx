@@ -1,21 +1,47 @@
 
 import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
-import { grey, purple } from '@mui/material/colors';
+import { blue, grey, purple, red } from '@mui/material/colors';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import Modal from '@mui/material/Modal';
 import CloseIcon from '@mui/icons-material/Close';
 import {useForm, SubmitHandler} from "react-hook-form";
 import {useQuery} from 'react-query';
-
-import {useLocation} from 'react-router-dom'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useState } from 'react';
 import axios from '../../../api/axios';
+import fetchData from '../../../api/fetchData';
+import CircularProgress from '@mui/material/CircularProgress';
+import ErrorIcon from '@mui/icons-material/Error';
+import Pagination from '@mui/material/Pagination';
 
+
+
+const url =  'https://localhost:7188/api/LearningPath/';
+
+const fetchLearningPaths = async (query:any) =>{
+
+const learningPathsData = fetchData(`${url}GetAll?PageNumber=${query.queryKey[1]}` );
+
+return learningPathsData;
+
+}
 
 const AdminLearningPath = () => {
 
+  const [open, setOpen] = useState(false);
+  const [page,setPage] = useState(1);
+  
+
+  const {data,status} = useQuery(['learning Path',page],fetchLearningPaths,{
+    staleTime:5000,
+    onError: () =>{
+      toast.error('Error Fetching Learning Paths');
+    }
+  });
+
     const formData = new FormData();
-    const LearningPathCreate_Url = '/api/LearningPath/Create'
+    
 
     interface LearningPath {
       Name:string,
@@ -35,7 +61,7 @@ const AdminLearningPath = () => {
         console.log(formData)
         try{
 
-          const response = await axios.post(LearningPathCreate_Url,formData,
+          const response = await axios.post(url+'Create',formData,
             {
               headers:{'Content-Type':'multipart/form-data'},
               withCredentials:true,
@@ -50,18 +76,25 @@ const AdminLearningPath = () => {
 
       }
       
-        const [open, setOpen] = useState(false);
+        
+        //open modal
         const handleOpen = () => setOpen(true);
+        //close modal
         const handleClose = () => setOpen(false);
-      
+        //set change of page
+        const handleChange = (event:any, value:number) => {setPage(value);}
+
+        
+        
+        
         
         return (
           <div className='flex flex-col items-center  w-full h-screen gap-8 px-6 py-5' >
-            
+            <ToastContainer />
             <div className="flex flex-col border-b-4 border-purple-200 gap-2 items-center justify-center shadow-md bg-white  p-6 rounded-md">
                 <div className='flex justify-between w-full border-b-2 pb-4'>
                   <span> <ClassOutlinedIcon sx={{ color:purple[700]}} fontSize='large' /> </span>
-                  <h3 className='text-center text-xl font-bold '> 4 </h3>
+                  <h3 className='text-center text-xl font-bold '> {data? data.dataList.totalCount : 0} </h3>
                 </div>
                 
                 <h3 className="text-xl font-bold"> Learning Paths </h3>
@@ -127,60 +160,81 @@ const AdminLearningPath = () => {
               </Modal>
     
     
-    
-    
-    
-            <div className='overflow-x-auto w-full h-full shadow-md sm:rounded-lg'>
+            {
+              status === 'success' &&
+              (
+                <div className='overflow-x-auto w-full h-full shadow-md sm:rounded-lg'>
                 
-              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 table-auto">
-                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 table-auto">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" className="px-6 py-3 text-center">
+                                Name
+                            </th>
+                            <th scope="col" className="px-6 py-3 text-center">
+                               Description
+                            </th>
+                            
+                            <th scope="col" className="px-6 py-3 text-center">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {data.result?.map((learningPath:any) =>
+                        <tr key={learningPath.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <th scope="row" className="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {learningPath.name}
+                            </th>
+                            <td className="px-6 py-4 text-center">
+                                {learningPath.description}
+                            </td>
+                            
+                            <td className="px-6 py-4 text-right flex gap-3 justify-end">
+                                <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+                            </td>
+                        </tr> 
+                        
+                      )} 
+                        
                       <tr>
-                          <th scope="col" className="px-6 py-3">
-                              First Name
-                          </th>
-                          <th scope="col" className="px-6 py-3">
-                              Last Name
-                          </th>
-                          <th scope="col" className="px-6 py-3">
-                              Gender
-                          </th>
-                          <th scope="col" className="px-6 py-3">
-                              Phone Number
-                          </th>
-                          <th scope="col" className="px-6 py-3">
-                              Actions
-                          </th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                          <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                              Apple MacBook Pro 17"
-                          </th>
-                          <td className="px-6 py-4">
-                              Silver
-                          </td>
-                          <td className="px-6 py-4">
-                              Laptop
-                          </td>
-                          <td className="px-6 py-4">
-                              $2999
-                          </td>
-                          <td className="px-6 py-4 text-right flex gap-3 justify-end">
-                              <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                              <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
-                          </td>
-                      </tr>
-                      
-                      
-                  </tbody>
-              </table>
+                        
+                        <td colSpan={3}  className='py-4'>
+                        <Pagination count={data.dataList.totalPages} page={page} onChange={handleChange} variant="outlined" shape="rounded" />
+                        </td>
+                      </tr>  
+                    </tbody>
+                </table>
+      
+      
+      
+      
+              </div>
+              )
+            }
+
+            {
+              status === 'loading' && (
+                <div className='flex justify-center items-center'>
+                <CircularProgress sx={{ fontSize: 60, color:blue }}  />
+              </div>
+              )
+            }
     
     
-    
-    
-            </div>
-            </div>
+            {
+              status === 'error' && (
+                <div className='flex justify-center items-center'>
+               <ErrorIcon  sx={{ fontSize: 60, color:red }} />
+             </div> 
+              )
+            }
+
+            
+
+
+          </div>
             
          
     

@@ -40,6 +40,11 @@ function App() {
           </Route>
         </Route>
 
+          {/* <Route path="/admin" element={<AdminHome />} >
+            <Route index element={<Landing />} />
+            <Route path="/admin/AdminLearningPath" element={<AdminLearningPath />} />
+          </Route> */}
+
 
         <Route path="/" element={<HomeLayout />}>
           <Route path="/LearningPaths" element={<LearningPaths />} />

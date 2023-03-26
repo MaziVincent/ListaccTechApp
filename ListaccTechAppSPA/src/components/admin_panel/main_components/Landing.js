@@ -6,67 +6,74 @@ import TopicOutlinedIcon from '@mui/icons-material/TopicOutlined';
 import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import fetchData from '../../../api/fetchData';
+import {useQuery} from 'react-query';
+import useRefreshToken from '../../../hooks/useRefreshToken';
 
 
 const Landing = () => {
-  //const location = useLocation()
-  // console.log(location.pathname);
+  const url = '/api/Students/GetAll'
+  const fetchStudents = async ()=>{
+    const {data} = await fetchData(url)
+  }
+const refresh = useRefreshToken();
+  const {data,status} = useQuery("students",fetchStudents);
   
   return (
     <div className='flex flex-col items-start  w-full h-screen gap-8 px-6 py-5'>
 
-      <div className="flex flex-row w-full border-4 justify-center lg:justify-start items-center flex-wrap lg:flex-nowrap   gap-5">
+      <div className="flex flex-row w-full  justify-center lg:justify-start items-center flex-wrap lg:flex-nowrap   gap-5">
           
-          <div className="flex flex-col basis-3/5 md:basis-1/3 border-b-4 border-purple-200 gap-2 items-center justify-center shadow-md bg-white  p-6 rounded-md">
+          <div className="flex flex-col basis-3/5 md:basis-1/3 border-b-4 border-purple-200 gap-2 items-center justify-center shadow-md bg-white  p-4 rounded-md">
             <div className='flex justify-between w-full border-b-2 pb-4'>
               <span> <ClassOutlinedIcon sx={{ color:purple[700]}} fontSize='large' /> </span>
               <h3 className='text-center text-xl font-bold '> 4 </h3>
             </div>
             
-            <h3 className="text-xl font-bold"> Learning Paths </h3>
+            <h3 className="text-lg font-bold"> Learning Paths </h3>
           </div>
           
-          <div className="flex flex-col basis-3/5 md:basis-1/3 border-b-4 border-green-200 gap-2 items-center justify-center shadow-md bg-white  p-6 rounded-md">
+          <div className="flex flex-col basis-3/5 md:basis-1/3 border-b-4 border-green-200 gap-2 items-center justify-center shadow-md bg-white  p-4 rounded-md">
             <div className='flex justify-between w-full border-b-2 pb-4'>
               <span> <ViewModuleOutlinedIcon sx={{ color:green[700]}} fontSize='large' /> </span>
               <h3 className='text-center text-xl  font-bold '> 4 </h3>
             </div>
             
-            <h3 className="text-xl font-bold"> Modules </h3>
+            <h3 className="text-lg font-bold"> Modules </h3>
           </div>
 
-          <div className="flex flex-col basis-3/5 md:basis-1/3 border-b-4 border-yellow-200 gap-2 items-center justify-center shadow-md bg-white  p-6 rounded-md">
+          <div className="flex flex-col basis-3/5 md:basis-1/3 border-b-4 border-yellow-200 gap-2 items-center justify-center shadow-md bg-white  p-4 rounded-md">
             <div className='flex justify-between w-full border-b-2 pb-4'>
               <span> <TopicOutlinedIcon sx={{ color:yellow[700]}} fontSize='large' /> </span>
               <h3 className='text-center text-xl  font-bold '> 4 </h3>
             </div>
             
-            <h3 className="text-xl font-bold"> Topics </h3>
+            <h3 className="text-lg font-bold"> Topics </h3>
           </div>
 
-          <div className="flex flex-col basis-3/5 md:basis-1/3 border-b-4 border-blue-200 gap-2 items-center justify-center shadow-md bg-white  p-6 rounded-md">
+          <div className="flex flex-col basis-3/5 md:basis-1/3 border-b-4 border-blue-200 gap-2 items-center justify-center shadow-md bg-white  p-4 rounded-md">
             <div className='flex justify-between w-full border-b-2 pb-4'>
               <span> <NoteAltOutlinedIcon sx={{ color:blue[700]}} fontSize='large' /> </span>
               <h3 className='text-center text-xl  font-bold '> 4 </h3>
             </div>
             
-            <h3 className="text-xl font-bold"> Lessons </h3>
+            <h3 className="text-lg font-bold"> Lessons </h3>
           </div>
 
-          <div className="flex flex-col basis-3/5 md:basis-1/3 border-b-4 border-brown-200 gap-2 items-center justify-center shadow-md bg-white  p-6 rounded-md">
+          <div className="flex flex-col basis-3/5 md:basis-1/3 border-b-4 border-brown-200 gap-2 items-center justify-center shadow-md bg-white  p-4 rounded-md">
             <div className='flex justify-between w-full border-b-2 pb-4'>
               <span> <PeopleAltOutlinedIcon sx={{ color:brown[700]}} fontSize='large' /> </span>
               <h3 className='text-center text-xl  font-bold '> 4 </h3>
             </div>
             
-            <h3 className="text-xl font-bold"> Students </h3>
+            <h3 className="text-lg font-bold"> Students </h3>
           </div>
 
           
           
 
         </div>
-
+        <button onClick={() => refresh()} > refreshtoken</button> <br/>
         <div className='flex flex-col items-center justify-center gap-6 w-full'>
           <h2 className='text-3xl font-bold'> Students </h2>
           <div className='flex justify-between items-center w-full lg:w-4/5 border-2'>
