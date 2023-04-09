@@ -8,7 +8,7 @@ const useRefreshToken = () => {
 
     const refresh = async () => {
 
-        const response = await axios.get('/api/Auth/RefreshToken',{
+        const response = await axios.post('/api/Auth/RefreshToken',{
             withCredentials:true,
 
         });

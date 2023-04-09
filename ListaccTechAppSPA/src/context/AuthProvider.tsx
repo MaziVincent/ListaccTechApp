@@ -20,7 +20,7 @@ type ContextProviderProps = {
 export const AuthProvider  = ({children}:ContextProviderProps) => {
     const [auth, setAuth] = useState(values.auth);
     
-    console.log(auth.expires_at)
+    //console.log(auth.expires_at)
     
     return (
         
