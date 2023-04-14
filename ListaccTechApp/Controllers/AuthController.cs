@@ -232,7 +232,7 @@ namespace ListaccTechApp.Controllers
             };
             user.RefreshToken = newRefreshToken;
             await _context.AddAsync(newRefreshToken);
-             _context.Users.Update(user);
+            _context.Users.Update(user);
             await _context.SaveChangesAsync();
 
             var returnToken = new
