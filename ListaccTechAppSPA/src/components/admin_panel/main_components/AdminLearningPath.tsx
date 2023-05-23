@@ -14,6 +14,7 @@ import fetchData from '../../../api/fetchData';
 import CircularProgress from '@mui/material/CircularProgress';
 import ErrorIcon from '@mui/icons-material/Error';
 import Pagination from '@mui/material/Pagination';
+import useAuth from "../../../hooks/useAuth";
 
 
 
@@ -21,7 +22,9 @@ const url =  'https://localhost:7188/api/LearningPath/';
 
 const fetchLearningPaths = async (query:any) =>{
 
-const learningPathsData = fetchData(`${url}GetAll?PageNumber=${query.queryKey[1]}` );
+  const {auth} = useAuth();
+
+const learningPathsData = fetchData(`${url}GetAll?PageNumber=${query.queryKey[1]}`,auth.token );
 
 return learningPathsData;
 
@@ -94,7 +97,7 @@ const AdminLearningPath = () => {
             <div className="flex flex-col border-b-4 border-purple-200 gap-2 items-center justify-center shadow-md bg-white  p-6 rounded-md">
                 <div className='flex justify-between w-full border-b-2 pb-4'>
                   <span> <ClassOutlinedIcon sx={{ color:purple[700]}} fontSize='large' /> </span>
-                  <h3 className='text-center text-xl font-bold '> {data? data.dataList.totalCount : 0} </h3>
+                  <h3 className='text-center text-xl font-bold '> {data? data.data.totalCount : 0} </h3>
                 </div>
                 
                 <h3 className="text-xl font-bold"> Learning Paths </h3>
@@ -181,7 +184,7 @@ const AdminLearningPath = () => {
                         </tr>
                     </thead>
                     <tbody>
-                    {data.result?.map((learningPath:any) =>
+                    {data.data.returnedList?.map((learningPath:any) =>
                         <tr key={learningPath.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <th scope="row" className="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {learningPath.name}
@@ -201,7 +204,7 @@ const AdminLearningPath = () => {
                       <tr>
                         
                         <td colSpan={3}  className='py-4'>
-                        <Pagination count={data.dataList.totalPages} page={page} onChange={handleChange} variant="outlined" shape="rounded" />
+                        <Pagination count={data.data.totalPages} page={page} onChange={handleChange} variant="outlined" shape="rounded" />
                         </td>
                       </tr>  
                     </tbody>
