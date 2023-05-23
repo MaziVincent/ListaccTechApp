@@ -26,42 +26,7 @@ function Header() {
   console.log(navbar)
 
   return (
-    // <header
-    //   className=" flex flex-row justify-between
-    // bg-white px-2 sm:px-4 py-2.5
-    //  fixed w-full z-20 top-0 left-0 shadow "
-    // >
-    //   <div className=" flex items-center mb-6 ml-3 md:mb-0">
-    //     <Link to="/" className="flex items-center ">
-    //       <img src={logo} className="h-6 mr-3 sm:h-10" alt="Listacc Logo" />
-    //     </Link>
-    //   </div>
-    //   <nav className=" justify-end">
-    //     <div className="max-w-screen-xl px-4 py-3 mx-auto md:px-6">
-    //       <div className="flex items-center">
-    //         <ul className="flex flex-row mt-0 mr-6 space-x-8 text-sm font-medium text-base">
-    //            {
-
-    //             links.map((link)=>(
-    //               <li key={link.linkName}>
-    //                  <Link
-    //                   to={link.path}
-    //                   className="text-gray-900 dark:text-white hover:border-b-4 duration-500 pb-1.5"
-    //                   aria-current="page"
-    //                 >
-    //               {link.linkName}
-    //             </Link>
-    //               </li>
-    //             ))
-
-    //             }
-
-    //         </ul>
-    //         <Button value={"Get Started"} />
-    //       </div>
-    //     </div>
-    //   </nav>
-    // </header>
+  
 
     <nav className="w-screen bg-white shadow">
       <div className="justify-between px-4 mx-auto lg:max-w-xl7 md:items-center md:flex md:px-10">

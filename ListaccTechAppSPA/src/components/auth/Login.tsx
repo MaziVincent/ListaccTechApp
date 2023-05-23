@@ -12,7 +12,7 @@ const Login_Url = "/api/Auth/Login";
 
 const Login = () => {
   const navigate = useNavigate();
-  const {auth, setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const [errorMsg, setErrorMsg] = useState("");
   interface Login {
     EmailAddress: String;
@@ -29,39 +29,35 @@ const Login = () => {
 
   const submit: SubmitHandler<Login> = async (data, e) => {
     e?.preventDefault();
-    
 
     try {
       const response = await axios.post(Login_Url, JSON.stringify(data), {
         headers: { "Content-Type": "application/json" },
         withCredentials: false,
       });
-     // console.log(JSON.stringify(response.data));
-      
-      console.log(response.data)
+      // console.log(JSON.stringify(response.data));
+
+      console.log(response.data);
 
       setAuth(response.data);
-      switch(response.data.currentUser.role){
-        case "Admin" :
-          navigate("/admin")
+      switch (response.data.currentUser.role) {
+        case "Admin":
+          navigate("/admin");
           break;
-        case "OnlineStudent" :
-          navigate("/Dashboard")
+        case "OnlineStudent":
+          navigate("/Dashboard");
           break;
-        default :
-        toast.error("An error Occured During Login");
+        default:
+          toast.error("An error Occured During Login");
       }
-      
-    
-      
     } catch (error: any) {
-        console.log(error)
+      console.log(error);
       if (!error.response) {
         setErrorMsg("No Server Response");
 
         toast.error("No Server Response");
       }
-      
+
       switch (error.response.status) {
         case 400: {
           setErrorMsg("missing username or password");
@@ -76,12 +72,12 @@ const Login = () => {
           break;
         }
         case 404: {
-            setErrorMsg("user does not exist");
-  
-            toast.error("user does not exist");
-            break;
-          }
-        
+          setErrorMsg("user does not exist");
+
+          toast.error("user does not exist");
+          break;
+        }
+
         default: {
           setErrorMsg("Login failed");
 
