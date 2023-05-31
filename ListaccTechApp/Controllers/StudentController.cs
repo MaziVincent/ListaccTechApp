@@ -25,6 +25,7 @@ namespace ListaccTechApp.Controllers
             _mapper = mapper;
         }
 
+        //api/Student/Create
         [HttpPost("Create")]
         public async Task<IActionResult> CreateStudent(StudentModel std){
 
@@ -51,6 +52,7 @@ namespace ListaccTechApp.Controllers
             return BadRequest(new{Error=" Email already Exist"});
         }
 
+        //api/Student/Update/id
         [Authorize]
         [HttpPut("Update/{id}")]
         public async Task<IActionResult> EditStudent(int Id, StudentDto student){

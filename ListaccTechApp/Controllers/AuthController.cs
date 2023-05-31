@@ -12,6 +12,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using ListaccTechApp.Models;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ListaccTechApp.Controllers
 {
@@ -25,7 +28,14 @@ namespace ListaccTechApp.Controllers
         private readonly IMapper _mapper;
         private readonly IHttpClientFactory _ClientFactory;
         private readonly IUserService _userService;
-        public AuthController(MyDbContext context, ITokenGenerator tokenGenerator, IOtherServices oService, IMapper mapper, IHttpClientFactory ClientFactory, IUserService userService)
+        
+        
+
+
+        public AuthController(MyDbContext context, ITokenGenerator tokenGenerator,
+            IOtherServices oService, IMapper mapper, IHttpClientFactory ClientFactory,
+            IUserService userService)
+
         {
             _context = context;
             _tokenGenerator = tokenGenerator;
@@ -33,6 +43,7 @@ namespace ListaccTechApp.Controllers
             _mapper = mapper;
             _ClientFactory = ClientFactory;
             _userService = userService;
+           
             
         }
         // ListaccTechApp/Auth/Login
@@ -61,11 +72,44 @@ namespace ListaccTechApp.Controllers
                     //gets the type of user
                     var type = _oService.Strip(currentUser.GetType().ToString());
                     var tokenString = await _tokenGenerator.GenerateToken(login.EmailAddress!, currentUser.Id, type);
-                    var theCurrentUser =  _mapper.Map<CurrentUser>(currentUser);
+                    
+                    var refreshToken = new RefreshToken()
+                    {
+                        UserId = currentUser.Id,
+                        JwtId = tokenString.Jwt_Id,
+                        IsUsed = false,
+                        AddedDate = DateTime.UtcNow,
+                        ExpiryDate = DateTime.UtcNow.AddHours(1),
+                        Token = _tokenGenerator.GenerateRefreshToken()
+                    };
+                    await _context.AddAsync(refreshToken);
+                    currentUser.RefreshToken = refreshToken;
+                   
+                    _context.Users.Update(currentUser);
+
+                    await _context.SaveChangesAsync();
+
+                    var theCurrentUser = new CurrentUser() {
+
+                        Id = currentUser.Id,
+                        FirstName = currentUser.FirstName,
+                        LastName = currentUser.LastName,
+                        Gender = currentUser.Gender,
+                        Email = currentUser.Email,
+                        PhoneNumber = currentUser.PhoneNumber,
+                        Status = currentUser.Status,
+                        Role = type
+                        
+                    };
+                    
 
                     var token = new {
-                        token = tokenString,
+
+                        token = tokenString.TokenString,
+                        expires_at = tokenString.Expire_At,
+                        refreshToken = refreshToken.Token,
                         currentUser = theCurrentUser
+
                     };
 
                     return Ok(token);
@@ -148,6 +192,61 @@ namespace ListaccTechApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
+        //Refresh token
+        [HttpPost]
+        [Route("RefreshToken")]
+
+        public async Task<IActionResult> RefreshToken([FromBody] TokenModel token) {
+
+            if (!ModelState.IsValid) {
+
+                return BadRequest("Invalid Request");
+            }
+
+            string? accessToken = token.Token;
+            string? refreshToken = token.RefreshToken;
+
+            var principal = _tokenGenerator.GetClaimsPrincipal(accessToken!);
+            string email = principal!.Identity!.Name!;
+            var user = await _context.Users.Where(u => u.Email == email).FirstOrDefaultAsync();
+            var savedRefreshToken = await _context.RefreshTokens.Where(u => u.UserId == user!.Id).OrderBy(u => u.AddedDate).LastOrDefaultAsync();
+            if (user == null || savedRefreshToken!.Token != refreshToken || savedRefreshToken.ExpiryDate <= DateTime.UtcNow) {
+
+                return BadRequest("invalid access token or refresh token");
+            }
+
+            var newAccessToken = await _tokenGenerator.GenerateToken(user.Email, user.Id,user.GetType().ToString());
+            var generatedRefreshToken = _tokenGenerator.GenerateRefreshToken();
+            var newRefreshToken = new RefreshToken()
+            {
+
+                Token = generatedRefreshToken,
+                UserId = user.Id,
+                JwtId = newAccessToken.Jwt_Id,
+                IsUsed = false,
+                AddedDate = DateTime.UtcNow,
+                ExpiryDate = DateTime.UtcNow.AddHours(1),
+
+
+            };
+            user.RefreshToken = newRefreshToken;
+            await _context.AddAsync(newRefreshToken);
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+
+            var returnToken = new
+            {
+                accessToken = newAccessToken.TokenString,
+                expires_at = newAccessToken.Expire_At,
+                
+                refreshToken = newRefreshToken.Token
+            };
+
+            return Ok(returnToken);
+
+
+
+        }       
     }
 }

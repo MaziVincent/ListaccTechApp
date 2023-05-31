@@ -1,0 +1,81 @@
+{
+  "Files": [
+    {
+      "Id": "/Users/mac/Documents/ListaccTechApp-main/ListaccTechApp/wwwroot/010f865b-0b68-4aff-89b1-1dd79ab4bcd91562d4dae8dc03456edca898e89c0f39ae086a8f-1600x1000.jpg",
+      "PackagePath": "staticwebassets/010f865b-0b68-4aff-89b1-1dd79ab4bcd91562d4dae8dc03456edca898e89c0f39ae086a8f-1600x1000.jpg"
+    },
+    {
+      "Id": "/Users/mac/Documents/ListaccTechApp-main/ListaccTechApp/wwwroot/images/02875c33-63bc-4559-86ab-32415cce7164Web Development Class.png",
+      "PackagePath": "staticwebassets/images/02875c33-63bc-4559-86ab-32415cce7164Web Development Class.png"
+    },
+    {
+      "Id": "/Users/mac/Documents/ListaccTechApp-main/ListaccTechApp/wwwroot/images/06d55c14-a9d8-4a6b-8bcb-558e1bbc2032Web Development Class.png",
+      "PackagePath": "staticwebassets/images/06d55c14-a9d8-4a6b-8bcb-558e1bbc2032Web Development Class.png"
+    },
+    {
+      "Id": "/Users/mac/Documents/ListaccTechApp-main/ListaccTechApp/wwwroot/images/25ddc19e-6ec6-4012-8fda-30969d08cc0cAccave 1_6.png",
+      "PackagePath": "staticwebassets/images/25ddc19e-6ec6-4012-8fda-30969d08cc0cAccave 1_6.png"
+    },
+    {
+      "Id": "/Users/mac/Documents/ListaccTechApp-main/ListaccTechApp/wwwroot/images/477deaeb-ffc7-4380-8b7e-88ade18946eeWeb Development Class.png",
+      "PackagePath": "staticwebassets/images/477deaeb-ffc7-4380-8b7e-88ade18946eeWeb Development Class.png"
+    },
+    {
+      "Id": "/Users/mac/Documents/ListaccTechApp-main/ListaccTechApp/wwwroot/images/75119ca1-b452-4d35-8fe9-829c1e930b2fWeb Development Class.png",
+      "PackagePath": "staticwebassets/images/75119ca1-b452-4d35-8fe9-829c1e930b2fWeb Development Class.png"
+    },
+    {
+      "Id": "/Users/mac/Documents/ListaccTechApp-main/ListaccTechApp/wwwroot/images/84aee3f4-1e88-4eab-83a0-86b33cfc62d3accave.png",
+      "PackagePath": "staticwebassets/images/84aee3f4-1e88-4eab-83a0-86b33cfc62d3accave.png"
+    },
+    {
+      "Id": "/Users/mac/Documents/ListaccTechApp-main/ListaccTechApp/wwwroot/images/af44a8a2-c239-48a9-b4f8-26491bc6ac200_OsrkVI4kEjkWxAPN.png",
+      "PackagePath": "staticwebassets/images/af44a8a2-c239-48a9-b4f8-26491bc6ac200_OsrkVI4kEjkWxAPN.png"
+    },
+    {
+      "Id": "/Users/mac/Documents/ListaccTechApp-main/ListaccTechApp/wwwroot/images06f36284-2174-4735-90d8-8c7bd7c5bbf2restaurant logo.png",
+      "PackagePath": "staticwebassets/images06f36284-2174-4735-90d8-8c7bd7c5bbf2restaurant logo.png"
+    },
+    {
+      "Id": "/Users/mac/Documents/ListaccTechApp-main/ListaccTechApp/wwwroot/images2b7fe284-f97d-4b9b-831f-2f0c06470050restaurant logo.png",
+      "PackagePath": "staticwebassets/images2b7fe284-f97d-4b9b-831f-2f0c06470050restaurant logo.png"
+    },
+    {
+      "Id": "/Users/mac/Documents/ListaccTechApp-main/ListaccTechApp/wwwroot/images7060f7a2-4084-4e06-8b83-b91f2eadf92aWhatsApp Image 2023-03-02 at 9.40.10 PM (1).jpeg",
+      "PackagePath": "staticwebassets/images7060f7a2-4084-4e06-8b83-b91f2eadf92aWhatsApp Image 2023-03-02 at 9.40.10 PM (1).jpeg"
+    },
+    {
+      "Id": "/Users/mac/Documents/ListaccTechApp-main/ListaccTechApp/wwwroot/images7356415a-2fcd-4b9f-9100-823b9dddb936restaurant logo.png",
+      "PackagePath": "staticwebassets/images7356415a-2fcd-4b9f-9100-823b9dddb936restaurant logo.png"
+    },
+    {
+      "Id": "/Users/mac/Documents/ListaccTechApp-main/ListaccTechApp/wwwroot/images96ffe19a-34f3-4ca4-921f-05467266b0f0restaurant logo.png",
+      "PackagePath": "staticwebassets/images96ffe19a-34f3-4ca4-921f-05467266b0f0restaurant logo.png"
+    },
+    {
+      "Id": "/Users/mac/Documents/ListaccTechApp-main/ListaccTechApp/wwwroot/imagesb66ba470-3a00-4aea-93de-23ed07786cedrestaurant logo.png",
+      "PackagePath": "staticwebassets/imagesb66ba470-3a00-4aea-93de-23ed07786cedrestaurant logo.png"
+    },
+    {
+      "Id": "/Users/mac/Documents/ListaccTechApp-main/ListaccTechApp/wwwroot/imagesba58f305-472e-4694-a97f-cfed8974ce8erestaurant logo.png",
+      "PackagePath": "staticwebassets/imagesba58f305-472e-4694-a97f-cfed8974ce8erestaurant logo.png"
+    },
+    {
+      "Id": "obj/Debug/net6.0/staticwebassets/msbuild.ListaccTechApp.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net6.0/staticwebassets/msbuild.build.ListaccTechApp.props",
+      "PackagePath": "build\\ListaccTechApp.props"
+    },
+    {
+      "Id": "obj/Debug/net6.0/staticwebassets/msbuild.buildMultiTargeting.ListaccTechApp.props",
+      "PackagePath": "buildMultiTargeting\\ListaccTechApp.props"
+    },
+    {
+      "Id": "obj/Debug/net6.0/staticwebassets/msbuild.buildTransitive.ListaccTechApp.props",
+      "PackagePath": "buildTransitive\\ListaccTechApp.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

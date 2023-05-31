@@ -56,21 +56,25 @@ builder1.AddDefaultTokenProviders();
 
 builder.Services.AddHttpClient();
 
+var tokenValidationParameter = new TokenValidationParameters
+{
+    ValidateIssuer = false,
+    ValidateAudience = false,
+    ValidateLifetime = true,
+    ValidateIssuerSigningKey = true,
+    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Tokens:Key"])),
+    ClockSkew = TimeSpan.Zero,
+};
+
+builder.Services.AddSingleton(tokenValidationParameter);
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
 
                     options.SaveToken = true;
                     options.RequireHttpsMetadata = false;
 
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Tokens:Key"])),
-                        ClockSkew = TimeSpan.Zero,
-                    };
+                    options.TokenValidationParameters = tokenValidationParameter;
                 });
 
 
@@ -90,6 +94,22 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
+builder.Services.AddCors(options =>
+{
+
+    options.AddDefaultPolicy(
+
+            builder =>
+            {
+
+                builder.WithOrigins("http://localhost:3000/", "https://localhost:3000/")
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod();
+            }
+    );
+
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -100,6 +120,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
+app.UseCors(builder =>
+{
+
+    builder.AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin();
+});
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

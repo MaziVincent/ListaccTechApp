@@ -27,6 +27,7 @@ namespace ListaccTechApp.Services
             newAdmin.Email = user.Email;
             newAdmin.Gender = user.Gender!;
             newAdmin.PhoneNumber = user.PhoneNumber;
+            newAdmin.UserName = user.Email;
             newAdmin.Status = true;
 
             //Password Hash
@@ -85,17 +86,17 @@ namespace ListaccTechApp.Services
                 switch(props.Role[i]){
 
                     case "Admin":
-                    var admins = await _context.Admins!.Where(x => x.SearchString.Contains(props.SearchString!.ToUpper())).ToListAsync();
+                    var admins = await _context.Admins!.Where(x => x.SearchString!.Contains(props.SearchString!.ToUpper())).ToListAsync();
                     users = users.Concat(admins);
                     break;
 
                     case "OnlineStudent":
-                    var std = await _context.OnlineStudents!.Where(x => x.SearchString.Contains(props.SearchString!.ToUpper())).ToListAsync();
+                    var std = await _context.OnlineStudents!.Where(x => x.SearchString!.Contains(props.SearchString!.ToUpper())).ToListAsync();
                     users = users.Concat(std);
                     break;
 
                     default:
-                    var u = await _context.Users.Where(x => x.SearchString.Contains(props.SearchString!.ToUpper())).ToListAsync();
+                    var u = await _context.Users.Where(x => x.SearchString!.Contains(props.SearchString!.ToUpper())).ToListAsync();
                     users = users.Concat(u);
                     break;
 

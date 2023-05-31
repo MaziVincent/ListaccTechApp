@@ -9,6 +9,7 @@ using ListaccTechApp.ViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ListaccTechApp.Controllers
 {
@@ -26,9 +27,12 @@ namespace ListaccTechApp.Controllers
             _lpService = lpService;
             _mapper = mapper;
         }
+
+        //api/LearningPath/Create
+
         [Authorize(Roles ="Admin")]
         [HttpPost("Create")]
-        public async Task<IActionResult> CreateLearningPath(LearningPathModel lp){
+        public async Task<IActionResult> CreateLearningPath([FromForm]LearningPathModel lp){
 
             if(!ModelState.IsValid){
 
@@ -37,7 +41,30 @@ namespace ListaccTechApp.Controllers
 
             if(!await _lpService.IsLearningPathExist(lp.Name!)){
 
-               var result = await _lpService.CreateLearningPath(lp);
+
+                string imagePath;
+
+                if (lp.LearningPathAvatar!.FileName != null || lp.LearningPathAvatar!.FileName!.Length != 0)
+                {
+                    var guid = Guid.NewGuid().ToString();
+                    string fileName = lp.LearningPathAvatar.FileName.Trim();
+                    imagePath = Path.Combine("wwwroot", "images" + guid + fileName);
+
+                    using (FileStream stream = new(imagePath, FileMode.Create))
+                    {
+
+                        await lp.LearningPathAvatar.CopyToAsync(stream);
+                        stream.Close();
+                    }
+
+                    lp.ImageUrl = imagePath;
+
+                }
+
+                    
+
+
+                    var result = await _lpService.CreateLearningPath(lp);
                 
                 return Ok(result);
 
@@ -88,7 +115,7 @@ namespace ListaccTechApp.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("GetAll")]
 
         public async Task<IActionResult> GetAllLearningPaths([FromQuery]SearchPaging props)

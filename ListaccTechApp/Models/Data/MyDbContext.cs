@@ -60,7 +60,7 @@ namespace ListaccTechApp.Models.Data
         public DbSet<Lesson>? Lessons {get; set;}
         public DbSet<LessonMedia> LessonMedias { get; set; }
         public DbSet<Progress>? Progress {get; set;}
-
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
            
         
     }

@@ -10,6 +10,7 @@ namespace ListaccTechApp.Models
        public bool Status {get;set;}
        public string? salt {get;set;}
        public string? SearchString {get; set;}
+       public RefreshToken? RefreshToken { get; set; }
        
 
 

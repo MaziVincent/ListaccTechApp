@@ -24,6 +24,7 @@ namespace ListaccTechApp.Services
 
             newLp.Name = lp.Name!;
             newLp.Description = lp.Description!;
+            newLp.ImageUrl = lp.ImageUrl;
 
             await _context.LearningPaths!.AddAsync(newLp);
             await _context.SaveChangesAsync();
@@ -54,15 +55,7 @@ namespace ListaccTechApp.Services
             return returned;
         }
 
-        // public async Task<List<LearningPathModule>> GetLearningPaths(int Id)
-        // {
-        //     var learningPath = await _context.LearningPathModules!
-        //                         .Where(lp => lp.LearningPathId == Id)
-        //                         .Include(lp=>lp.LearningPath)
-        //                         .Include(lp => lp.Module).ToListAsync();
-
-        //     return learningPath!;
-        // }
+        
 
          public async Task<LearningPath> GetLearningPath(int Id)
         {

@@ -33,6 +33,9 @@ namespace ListaccTechApp.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
@@ -183,6 +186,40 @@ namespace ListaccTechApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Progress");
+                });
+
+            modelBuilder.Entity("ListaccTechApp.Models.RefreshToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsUsed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("JwtId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("text");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("ListaccTechApp.Models.Role", b =>
@@ -342,19 +379,9 @@ namespace ListaccTechApp.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("RoleId1")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("integer");
-
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
-
-                    b.HasIndex("RoleId1");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
@@ -535,6 +562,17 @@ namespace ListaccTechApp.Migrations
                     b.Navigation("Media");
                 });
 
+            modelBuilder.Entity("ListaccTechApp.Models.RefreshToken", b =>
+                {
+                    b.HasOne("ListaccTechApp.Models.User", "User")
+                        .WithOne("RefreshToken")
+                        .HasForeignKey("ListaccTechApp.Models.RefreshToken", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("ListaccTechApp.Models.Topic", b =>
                 {
                     b.HasOne("ListaccTechApp.Models.Module", "Module")
@@ -554,23 +592,11 @@ namespace ListaccTechApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ListaccTechApp.Models.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId1");
-
                     b.HasOne("ListaccTechApp.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ListaccTechApp.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
-
-                    b.Navigation("Role");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -636,6 +662,11 @@ namespace ListaccTechApp.Migrations
             modelBuilder.Entity("ListaccTechApp.Models.Topic", b =>
                 {
                     b.Navigation("Lessons");
+                });
+
+            modelBuilder.Entity("ListaccTechApp.Models.User", b =>
+                {
+                    b.Navigation("RefreshToken");
                 });
 
             modelBuilder.Entity("ListaccTechApp.Models.OnlineStudent", b =>
