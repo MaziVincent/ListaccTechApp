@@ -11,15 +11,15 @@ const Main = () => {
 
     
     return ( 
-        <main className="flex flex-col justify-between bg-gray-50 dark:bg-gray-700 pt-5
-        dark:bg-gray-900 w-screen gap-y-12">
+        <main className="flex flex-col justify-between bg-gray-50 dark:bg-gray-900 
+        dark:bg-gray-900 w-screen gap-y-12 pt-20 box-border">
             <section className="flex flex-col justify-center items-center w-full gap-y-4 ">
-                <div className="w-2/4">
-                    <h2 className="text-center font-sans text-xl5 font-bold">
-                        Your Career in <span className="text-orange-500">
+                <div className="w-3/4">
+                    <h2 className="text-center font-sans dark:text-gray-100 text-5xl font-bold">
+                        Your Career in <span className="text-orange-600">
                             Software Development </span> Starts Here!</h2>
                 </div>
-                <p className="text-center w-2/4 text-lg text-gray-500">Become a powerful Software Engineer in Front-End Web Development, 
+                <p className="text-center w-2/4 text-lg text-gray-500 dark:text-gray-300">Become a powerful Software Engineer in Front-End Web Development, 
                    Back-End Web Development, Full Stack Web Development, 
                    Mobile Application Development and Cloud Computing </p>
                 <div className="flex flex-row justify-center items-center">

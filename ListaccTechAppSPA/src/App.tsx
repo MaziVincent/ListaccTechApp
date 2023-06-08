@@ -26,11 +26,12 @@ function App() {
         <Route path='/' element={<HomeLayout />}>
           <Route path='/LearningPaths' element={<LearningPaths />} />
           <Route path='/LearningPaths/:Id' element={<LearningPathDetails />} />
-          <Route index element={<Home />} />
+          <Route index element={<Main />} />
         </Route>
       </Routes>
     </div>
   )
+
 }
 
 export default App;

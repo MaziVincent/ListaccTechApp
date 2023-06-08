@@ -9,6 +9,7 @@ const HomeLayout = () => {
         <Footer />
     
     
+    
     </> );
 }
  
