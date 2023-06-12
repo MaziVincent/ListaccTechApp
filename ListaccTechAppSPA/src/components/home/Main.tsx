@@ -31,14 +31,13 @@ const Main = () => {
                    Back-End Web Development, Full Stack Web Development, 
                    Mobile Application Development and Cloud Computing </p>
                 <div className="flex flex-row justify-center items-center">
-                    <button type="button"
-              className="bg-orange-500 hover:bg-orange-400 focus:ring-4 
+                    <Link className="bg-orange-500 hover:bg-orange-400 focus:ring-4 
               focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm
                px-5 py-2.5 text-center text-base
                mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 
-               dark:focus:ring-blue-800"
+               dark:focus:ring-blue-800" to={'/LearningPaths'}
             >         
-                        View Learning Paths</button>
+                        View Learning Paths</Link>
                 </div>
                  
             </section>

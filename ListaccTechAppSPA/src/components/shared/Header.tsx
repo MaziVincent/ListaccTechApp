@@ -33,9 +33,11 @@ function Header() {
       <div className="justify-between px-4 mx-auto lg:max-w-xl7 md:items-center md:flex md:px-10">
         <div>
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
-            <Link to="/">
-              <img src={logo} className="h-6 mr-3 sm:h-10" alt="Listacc Logo" />
-            </Link>
+            
+                <Link to="/" >
+                  <img src={logo} className="h-6 mr-3 sm:h-10 " alt="Listacc Logo" />
+                </Link>
+              
             <div className="md:hidden">
               <button
                 className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
