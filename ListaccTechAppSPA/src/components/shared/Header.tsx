@@ -97,7 +97,7 @@ function Header() {
 
             <div className=" flex justify-even items-center mt-3 space-y-2 md:flex gap-5 pr-4">
               <Link
-                  to="/SignIn"
+                  to="/Login"
                   className="inline-block  text-center text-white text-gray-900 dark:text-gray-100 text-base hover:border-b-4 duration-500  "
                 >
                   Sign in

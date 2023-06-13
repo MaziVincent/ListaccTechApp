@@ -12,6 +12,7 @@ import HomeLayout from "./components/home/HomeLayout";
 import Landing from './components/admin_panel/main_components/Landing'
 import AdminLearningPath from "./components/admin_panel/main_components/AdminLearningPath";
 import AdminModule from './components/admin_panel/main_components/AdminModule'
+import Login from "./components/auth/Login";
 
 function App() {
   
@@ -28,6 +29,10 @@ function App() {
           <Route path='/LearningPaths/:Id' element={<LearningPathDetails />} />
           <Route index element={<Main />} />
         </Route>
+
+
+
+        <Route path="/Login" element={<Login />}></Route>
       </Routes>
     </div>
   )
