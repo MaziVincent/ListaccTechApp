@@ -8,29 +8,26 @@ const AdminHome = () => {
   const [navbar, setNavbar] = useState(true)
 
   return (
-    <>
-      <div className='w-screen h-screen bg-cover bg-fixed bg-worldmap dark:bg-blue-300 overflow-x-hidden'>
-        <TopHeader navbar={navbar} setNavbar={setNavbar} />
+  
+      <div className='w-full flex flex-col overflow-x-hidden dark:text-gray-100 dark:bg-gray-900 '>
+        <TopHeader  />
         <div
-          className={
-            navbar
-              ? 'grid grid-cols-[208px_minmax(0,_1fr)] gap-0 sm:grid-rows-1 md:grid-cols-[208px_minmax(0,_1fr)]'
-              : 'grid grid-cols-1 gap-1 '
-          }
-        >
-          {navbar && (
-            <div className=' hidden w-52 sm:hidden md:block xsm:hidden'>
+          className='flex w-full  pt-28 gap-1 justify-center'
+          >
+          
+            <div className=' hidden basis-1/5 w-52 sm:hidden md:block xsm:hidden border-2'>
               <Nav />
             </div>
-          )}
-          <div className='w-full col-span-2 sm:col-span-2 xsm:col-span-2 md:col-span-1'>
+          
+          <div className='w-full basis-4/5 border-2 '>
             <Outlet />
           </div>
         </div>
         <Footer />
       </div>
-    </>
+    
   )
 }
+
 
 export default AdminHome

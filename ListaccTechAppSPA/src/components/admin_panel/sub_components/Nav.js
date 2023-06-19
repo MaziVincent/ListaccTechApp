@@ -5,20 +5,11 @@ const Nav = ({ navbar }) => {
   return (
     <>
         <aside
-          className='sidebar w-52 mt-12 min-h-screen hidden bg-[#111827] fixed md:block sm:hidden z-10 animate-pulse xsm:hidden'
+          className='sidebar w-52  min-h-screen hidden bg-[#111827] fixed md:block sm:hidden z-10 xsm:hidden'
           aria-label='Sidebar'
         >
           <div className='overflow-y-auto py-4 px-3 max-h-full'>
-            <div className='flex h-18 w-full'>
-              <Link to='/' className='flex items-center pl-2.5 mb-5 h-15 w-15 '>
-                <img
-                  src={Logo}
-                  className='mr-3 md:h-full sm:h-7'
-                  alt='ListaccTech Logo'
-                />
-              </Link>
-              
-            </div>
+            
             <ul className='space-y-2'>
               <li>
                 <Link

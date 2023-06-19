@@ -42,7 +42,7 @@ const Login = () => {
       setAuth(response.data);
       switch (response.data.currentUser.role) {
         case "Admin":
-          navigate("/admin");
+          navigate("/Admin");
           break;
         case "OnlineStudent":
           navigate("/Dashboard");
