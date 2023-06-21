@@ -9,17 +9,17 @@ const AdminHome = () => {
 
   return (
   
-      <div className='w-full flex flex-col overflow-x-hidden dark:text-gray-100 dark:bg-gray-900 '>
+      <div className='w-full flex flex-col  dark:text-gray-100 dark:bg-gray-900 '>
         <TopHeader  />
         <div
-          className='flex w-full  pt-28 gap-1 justify-center'
+          className='flex w-full  pt-28 gap-1 justify-center mb-12'
           >
           
-            <div className=' hidden basis-1/5 w-52 sm:hidden md:block xsm:hidden border-2'>
+            <div className=' hidden md:basis-1/5  sm:basis-1/12 md:block xsm:hidden border-2'>
               <Nav />
             </div>
           
-          <div className='w-full basis-4/5 border-2 '>
+          <div className='w-full basis-4/5 sm:basis-10/12 border-2 mb-28'>
             <Outlet />
           </div>
         </div>

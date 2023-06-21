@@ -13,6 +13,8 @@ import CircularProgress from '@mui/material/CircularProgress';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import useAuth from "../../../hooks/useAuth";
 import Pagination from '@mui/material/Pagination';
+import { useLocation } from 'react-router-dom';
+import TopMenu from '../sub_components/TopMenu';
 
 
 
@@ -27,6 +29,10 @@ const Landing = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(false)
   const [page, setPage] = useState(1)
+  const location = useLocation();
+  const pathName = location.pathname;
+
+  console.log(pathName);
   
   const {auth} = useAuth();
  
@@ -90,7 +96,7 @@ const refresh = useRefreshToken();
   
   return (
     <div className='flex flex-col items-start  w-full h-screen gap-8 px-6 py-5'>
-
+       <TopMenu location={pathName} />
       <div className="flex flex-row w-full  justify-center lg:justify-start items-center flex-wrap lg:flex-nowrap   gap-5">
           
           <div className="flex flex-col basis-3/5 md:basis-1/3 border-b-4 border-purple-200 gap-2 items-center justify-center shadow-md bg-white  p-4 rounded-md">

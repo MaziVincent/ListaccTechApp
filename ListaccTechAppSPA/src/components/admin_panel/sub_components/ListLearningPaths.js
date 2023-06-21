@@ -23,7 +23,7 @@ const ListLearningPaths = () => {
               <tbody>
                 <tr className='bg-white border-b transition duration-300 ease-in-out hover:bg-blue-300 bg-opacity-70'>
                   <td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-                    >The Sliding Mr. Bones (Next Stop, Pottersville)
+                    The Sliding Mr. Bones (Next Stop, Pottersville)
                   </td>
                   <td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
                     Malcolm Lockyer

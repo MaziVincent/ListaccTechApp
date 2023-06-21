@@ -76,6 +76,7 @@ namespace ListaccTechApp.Controllers
                     var refreshToken = new RefreshToken()
                     {
                         UserId = currentUser.Id,
+                        User = currentUser,
                         JwtId = tokenString.Jwt_Id,
                         IsUsed = false,
                         AddedDate = DateTime.UtcNow,
@@ -83,9 +84,9 @@ namespace ListaccTechApp.Controllers
                         Token = _tokenGenerator.GenerateRefreshToken()
                     };
                     await _context.AddAsync(refreshToken);
-                    currentUser.RefreshToken = refreshToken;
+                  
                    
-                    _context.Users.Update(currentUser);
+                   // _context.Users.Update(currentUser);
 
                     await _context.SaveChangesAsync();
 
@@ -223,6 +224,7 @@ namespace ListaccTechApp.Controllers
 
                 Token = generatedRefreshToken,
                 UserId = user.Id,
+                User = user,
                 JwtId = newAccessToken.Jwt_Id,
                 IsUsed = false,
                 AddedDate = DateTime.UtcNow,
@@ -230,9 +232,9 @@ namespace ListaccTechApp.Controllers
 
 
             };
-            user.RefreshToken = newRefreshToken;
+           
             await _context.AddAsync(newRefreshToken);
-            _context.Users.Update(user);
+           // _context.Users.Update(user);
             await _context.SaveChangesAsync();
 
             var returnToken = new

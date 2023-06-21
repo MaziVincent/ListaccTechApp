@@ -1,17 +1,18 @@
 import axios from "./axios";
+import baseURL from './BaseURL'
 
 
 const fetchData = async (url:string, token:string) => {
 
     
-    const baseUrl = 'https://localhost:7188/api/'
+    //const baseUrl = 'https://localhost:7050/api/'
      const controller = new AbortController();
      let errors:any; 
      let data:any
 
 
      try{
-         const response = await axios.get(baseUrl + url,{
+         const response = await axios.get(baseURL + url,{
              signal:controller.signal,
              headers:{
               Authorization: `Bearer ${token}`
