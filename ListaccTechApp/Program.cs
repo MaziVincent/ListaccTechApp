@@ -62,7 +62,7 @@ var tokenValidationParameter = new TokenValidationParameters
     ValidateAudience = false,
     ValidateLifetime = true,
     ValidateIssuerSigningKey = true,
-    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Tokens:Key"])),
+    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Tokens:Key"]!)),
     ClockSkew = TimeSpan.Zero,
 };
 
@@ -127,7 +127,7 @@ app.UseCors(builder =>
             .AllowAnyMethod()
             .AllowAnyOrigin();
 });
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>

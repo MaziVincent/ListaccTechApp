@@ -12,10 +12,10 @@ const AdminHome = () => {
       <div className='w-full flex flex-col  dark:text-gray-100 dark:bg-gray-900 '>
         <TopHeader  />
         <div
-          className='flex w-full  pt-28 gap-1 justify-center mb-12'
+          className='flex w-full  pt-28 gap-1 md:justify-center mb-12  px-2 border-2'
           >
           
-            <div className=' hidden md:basis-1/5  sm:basis-1/12 md:block xsm:hidden border-2'>
+            <div className='  md:basis-1/5  sm:basis-1/12 md:block xsm:basis-1/12 '>
               <Nav />
             </div>
           

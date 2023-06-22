@@ -15,6 +15,7 @@ import AdminModule from './components/admin_panel/main_components/AdminModule'
 import Login from "./components/auth/Login";
 import { QueryClient } from "react-query";
 import { QueryClientProvider } from 'react-query';
+import Page404 from "./components/shared/404";
 
 function App() {
 
@@ -24,11 +25,16 @@ function App() {
     <QueryClientProvider client={queryClient}>
         <div className=' box-border '>
           <Routes>
+
+            {/* admin routes */}
             <Route path='/Admin' element={<AdminHome />}>
               <Route path='/Admin/LearningPaths' element={<AdminLearningPath />} />
               <Route path='/Admin/modules' element={<AdminModule />} />
               <Route index element={<Landing />} />
             </Route>
+
+
+            {/* public routes */}
             <Route path='/' element={<HomeLayout />}>
               <Route path='/LearningPaths' element={<LearningPaths />} />
               <Route path='/LearningPaths/:Id' element={<LearningPathDetails />} />
@@ -38,6 +44,8 @@ function App() {
 
 
             <Route path="/Login" element={<Login />}></Route>
+              {/* catch all */}
+            <Route path="*" element={<Page404 />} />
           </Routes>
         </div>
     </QueryClientProvider>
