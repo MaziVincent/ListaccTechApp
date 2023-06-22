@@ -56,7 +56,7 @@ namespace ListaccTechApp.Controllers
             }
 
             var pmessage = login.Password;
-            var currentUser = await _context.Users.Where(u => u.Email.ToUpper().CompareTo(login.EmailAddress!.ToUpper())==0).FirstOrDefaultAsync();
+            var currentUser = await _context.Users.Where(u => u.Email!.ToUpper().CompareTo(login.EmailAddress!.ToUpper())==0).FirstOrDefaultAsync();
             if(currentUser == null){
                 return NotFound(new{error = "User Does not exist"});
             }else if(currentUser.Status == false){
@@ -67,7 +67,7 @@ namespace ListaccTechApp.Controllers
 
                 var passwordHash = Hash.Create(pmessage!, currentUser.salt!);
 
-                if(currentUser.PasswordHash.CompareTo(passwordHash)==0){
+                if(currentUser.PasswordHash!.CompareTo(passwordHash)==0){
 
                     //gets the type of user
                     var type = _oService.Strip(currentUser.GetType().ToString());
@@ -141,7 +141,7 @@ namespace ListaccTechApp.Controllers
                     var apiString = await response.Content.ReadAsStringAsync();
                     var user = JsonConvert.DeserializeObject<GoogleAuth>(apiString);
 
-                    var currentUser = await _context.Users.Where(u => u.Email.ToUpper().CompareTo(user!.email!.ToUpper()) == 0).FirstOrDefaultAsync();
+                    var currentUser = await _context.Users.Where(u => u.Email!.ToUpper().CompareTo(user!.email!.ToUpper()) == 0).FirstOrDefaultAsync();
                     if (currentUser == null)
                     {
                         var newUser = new OnlineStudent();
@@ -171,7 +171,7 @@ namespace ListaccTechApp.Controllers
                     else
                     {
                         var type = _oService.Strip(currentUser.GetType().ToString());
-                        var tokenString = await _tokenGenerator.GenerateToken(currentUser.Email, currentUser.Id, type);
+                        var tokenString = await _tokenGenerator.GenerateToken(currentUser.Email!, currentUser.Id, type);
 
                         return Ok(new
                         {
@@ -217,7 +217,7 @@ namespace ListaccTechApp.Controllers
                 return BadRequest("invalid access token or refresh token");
             }
 
-            var newAccessToken = await _tokenGenerator.GenerateToken(user.Email, user.Id,user.GetType().ToString());
+            var newAccessToken = await _tokenGenerator.GenerateToken(user.Email!, user.Id,user.GetType().ToString());
             var generatedRefreshToken = _tokenGenerator.GenerateRefreshToken();
             var newRefreshToken = new RefreshToken()
             {

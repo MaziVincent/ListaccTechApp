@@ -7,7 +7,7 @@ const TopHeader = () => {
 
   return (
     <>
-      <div className='fixed w-full bg-[#111827] text-white flex items-center '>
+      <div className='fixed w-full bg-[#111827] text-white flex items-center top-0 '>
         <div className='h-1/12 px-4 py-2'>
           <Link to='/'  >
             <img src={Logo} alt='logo' className=' h-12 md:h-14' /> 

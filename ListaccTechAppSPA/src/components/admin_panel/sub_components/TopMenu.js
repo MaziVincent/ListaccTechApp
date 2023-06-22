@@ -1,7 +1,6 @@
 import {Link} from 'react-router-dom'
 import {useState, useEffect} from 'react'
 import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
@@ -13,21 +12,21 @@ const TopMenu = ({location}) => {
     // console.log(location);
 
     const breadcrumbs = [
-      <Link underline="hover" key="1" color="inherit" to="/Admin" >
+      <Link underline="hover" key="1" className="dark:text-gray-100" to="/Admin" >
         Admin
       </Link>,
       
        
-      <Typography key="3" color="text.primary">
+      <span key="3" className="dark:text-gray-100">
         {location}
-      </Typography>,
+      </span>,
     ];
   
     return (
       <Stack spacing={2}>
         
         <Breadcrumbs
-          separator={<NavigateNextIcon fontSize="small" />}
+          separator={<NavigateNextIcon fontSize="small" className='dark:text-gray-100' />}
           aria-label="breadcrumb"
         >
           {breadcrumbs}

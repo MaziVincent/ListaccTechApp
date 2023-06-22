@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useForm, SubmitHandler } from "react-hook-form";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,6 +12,8 @@ const Login_Url = "/api/Auth/Login";
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  //const from = location.pathname || "/"
   const { auth, setAuth } = useAuth();
   const [errorMsg, setErrorMsg] = useState("");
   interface Login {
