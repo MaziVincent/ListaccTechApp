@@ -8,7 +8,7 @@ import useAuth from "../../hooks/useAuth";
 
 import axios from "../../api/axios";
 
-const Login_Url = "/api/Auth/Login";
+const Login_Url = "/Auth/Login";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -34,8 +34,8 @@ const Login = () => {
 
     try {
       const response = await axios.post(Login_Url, JSON.stringify(data), {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: false,
+        headers: { "Content-Type": "application/json" }
+        
       });
       // console.log(JSON.stringify(response.data));
 

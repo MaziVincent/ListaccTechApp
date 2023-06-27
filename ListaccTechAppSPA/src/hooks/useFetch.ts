@@ -18,7 +18,8 @@ const useFetch =  (url:string) => {
 
                 try{
                     const response = await axios.get(url,{
-                        signal:controller.signal
+                        signal:controller.signal,
+                        headers:{'Content-Type':'application/json'}
                     });
                     console.log(response.data);
                     setData(response.data.result)

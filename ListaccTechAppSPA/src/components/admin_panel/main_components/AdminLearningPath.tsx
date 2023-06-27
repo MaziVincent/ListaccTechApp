@@ -10,7 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from 'react';
 import axios from '../../../api/axios';
-import fetchData from '../../../api/fetchData';
+import useFetchData from '../../../api/useFetchData';
 import CircularProgress from '@mui/material/CircularProgress';
 import ErrorIcon from '@mui/icons-material/Error';
 import Pagination from '@mui/material/Pagination';
@@ -28,6 +28,7 @@ const AdminLearningPath = () => {
   const [open, setOpen] = useState(false);
   const [page,setPage] = useState(1);
   const {auth} = useAuth();
+  const fetchData = useFetchData();
 
 
   const fetchLearningPaths = async (query:any) =>{  

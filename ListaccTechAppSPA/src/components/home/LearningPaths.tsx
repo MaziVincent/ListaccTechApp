@@ -1,8 +1,15 @@
 import Button from "../shared/Button";
 import dotnet from '../../assets/images/dotnet.png'
 import { Link } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
+import baseURL from "../../api/BaseURL";
 
 const LearningPaths = () => {
+
+  const url = baseURL+'LearningPath/GetAll';
+  const fetch = useFetch(url)
+
+  console.log(fetch);
 
   let id = 1;
   return (

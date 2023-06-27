@@ -9,7 +9,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 const TopMenu = ({location}) => {
     const [button, setButton] = useState(1)
     location = location.split("/")
-    // console.log(location);
+    //console.log(location);
 
     const breadcrumbs = [
       <Link underline="hover" key="1" className="dark:text-gray-100" to="/Admin" >
@@ -18,7 +18,7 @@ const TopMenu = ({location}) => {
       
        
       <span key="3" className="dark:text-gray-100">
-        {location}
+        {location[1] == 'Admin'?'Dashboard' : location[1]}
       </span>,
     ];
   

@@ -10,6 +10,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Cors;
 
 namespace ListaccTechApp.Controllers
 {
@@ -116,6 +117,7 @@ namespace ListaccTechApp.Controllers
         }
 
         //[Authorize]
+       // [EnableCors()]
         [HttpGet("GetAll")]
 
         public async Task<IActionResult> GetAllLearningPaths([FromQuery]SearchPaging props)

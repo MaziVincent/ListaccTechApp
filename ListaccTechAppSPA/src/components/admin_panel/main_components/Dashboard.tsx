@@ -6,9 +6,8 @@ import TopicOutlinedIcon from '@mui/icons-material/TopicOutlined';
 import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import Fetch from '../../../api/fetchData';
+import useFetchData from '../../../api/useFetchData';
 import {useQuery} from 'react-query';
-import useRefreshToken from '../../../hooks/useRefreshToken';
 import CircularProgress from '@mui/material/CircularProgress';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import useAuth from "../../../hooks/useAuth";
@@ -19,10 +18,11 @@ import TopMenu from '../sub_components/TopMenu';
 
 
 
-const Landing = () => {
+
+const Dashboard = () => {
 
 
-
+  const Fetch = useFetchData();
   const url = 'User/GetUsers?Role=OnlineStudent'
 
   const [success, setSuccess] = useState(false)
@@ -77,14 +77,7 @@ const Landing = () => {
 
    // handle student creation 
 
-   
-      
-
-      
-         
-    
   
-const refresh = useRefreshToken();
   
 
 
@@ -96,6 +89,7 @@ const refresh = useRefreshToken();
   return (
     <div className='flex flex-col items-start  w-full h-full gap-8 px-6 py-5'>
        <TopMenu location={pathName} />
+      
       <div className="flex flex-row w-full  justify-center lg:justify-start  items-center flex-wrap lg:flex-nowrap   gap-5">
           
           <div className="flex flex-col basis-3/5 md:basis-1/3 border-b-4 dark:bg-gray-800 border-purple-200 gap-2 items-center justify-center shadow-md bg-white  p-4 rounded-md">
@@ -220,7 +214,7 @@ const refresh = useRefreshToken();
                     <tr>
                         
                             <td colSpan={3}  className='py-4'>
-                                 <Pagination count={data.data.totalPages} page={page} onChange={handleChange} variant="outlined" shape="rounded" />
+                                 <Pagination count={data.data.totalPages} page={page} onChange={handleChange} variant="outlined" shape="rounded" className='dark:text-gray-100' />
                             </td>
                       </tr>        
                 </tbody>
@@ -243,4 +237,4 @@ const refresh = useRefreshToken();
   )
 }
 
-export default Landing
+export default Dashboard
