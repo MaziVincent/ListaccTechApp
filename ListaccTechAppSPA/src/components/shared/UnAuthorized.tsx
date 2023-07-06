@@ -3,7 +3,7 @@ import Button  from "./Button";
 
 const UnAuthorized = () => {
     const navigate = useNavigate();
-    const goto = () => navigate(-1)
+    const goto = () => navigate("/Login")
     return ( <div className="flex flex-col items-center justify-center h-screen">
         <p> You are not allowed to go there </p>
         <Button value='Go Back' click={goto} />

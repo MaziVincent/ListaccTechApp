@@ -62,7 +62,7 @@ var tokenValidationParameter = new TokenValidationParameters
     ValidateAudience = false,
     ValidateLifetime = true,
     ValidateIssuerSigningKey = true,
-    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Tokens:Key"])),
+    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Tokens:Key"]!)),
     ClockSkew = TimeSpan.Zero,
 };
 
@@ -95,20 +95,18 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddCors(options =>
-{
-
-    options.AddDefaultPolicy(
-
+    {
+        options.AddDefaultPolicy(
             builder =>
             {
-
-                builder.WithOrigins("http://localhost:3000/", "https://localhost:3000/")
+                builder.WithOrigins("https://localhost:3000", "http://localhost:3000")
                                     .AllowAnyHeader()
-                                    .AllowAnyMethod();
-            }
-    );
+                                    .AllowAnyMethod()
+                                    .SetIsOriginAllowed((host) => true)
+                                    .AllowCredentials();
+            });
+    });
 
-});
 
 var app = builder.Build();
 
@@ -119,15 +117,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseRouting();
-app.UseCors(builder =>
-{
 
-    builder.AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowAnyOrigin();
-});
-app.UseHttpsRedirection();
+
+app.UseRouting();
+app.UseCors();
+//app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>

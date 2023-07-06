@@ -7,7 +7,7 @@ function Home() {
     
 
   
-      <div className="container pt-20 box-border ">
+      <div className="container w-full pt-20 box-border dark:bg-gray-900">
         <Main />
       </div>
       

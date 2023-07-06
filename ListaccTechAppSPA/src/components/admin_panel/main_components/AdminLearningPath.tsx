@@ -10,30 +10,34 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from 'react';
 import axios from '../../../api/axios';
-import fetchData from '../../../api/fetchData';
+import useFetchData from '../../../api/useFetchData';
 import CircularProgress from '@mui/material/CircularProgress';
 import ErrorIcon from '@mui/icons-material/Error';
 import Pagination from '@mui/material/Pagination';
 import useAuth from "../../../hooks/useAuth";
+import baseURL from '../../../api/BaseURL';
 
 
 
-const url =  'https://localhost:7188/api/LearningPath/';
+const url =  `${baseURL}/LearningPath/`;
 
-const fetchLearningPaths = async (query:any) =>{
 
-  const {auth} = useAuth();
-
-const learningPathsData = fetchData(`${url}GetAll?PageNumber=${query.queryKey[1]}`,auth.token );
-
-return learningPathsData;
-
-}
 
 const AdminLearningPath = () => {
 
   const [open, setOpen] = useState(false);
   const [page,setPage] = useState(1);
+  const {auth} = useAuth();
+  const fetchData = useFetchData();
+
+
+  const fetchLearningPaths = async (query:any) =>{  
+  
+  const learningPathsData = fetchData(`${url}GetAll?PageNumber=${query.queryKey[1]}`,auth.token );
+  
+  return learningPathsData;
+  
+  }
   
 
   const {data,status} = useQuery(['learning Path',page],fetchLearningPaths,{

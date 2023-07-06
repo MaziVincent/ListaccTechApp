@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 namespace ListaccTechApp.Models.Data
 {
     public class MyDbContext : IdentityDbContext<User, Role, int, 
-    IdentityUserClaim<int>, UserRole, IdentityUserLogin<int>, IdentityRoleClaim<int>, 
+    IdentityUserClaim<int>, IdentityUserRole<int>, IdentityUserLogin<int>, IdentityRoleClaim<int>, 
     IdentityUserToken<int>>
     {
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options){

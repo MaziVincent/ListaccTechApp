@@ -117,7 +117,7 @@ namespace ListaccTechApp.Services
        
         public async Task<bool> IsStudentExist(string email)
         {
-           var u = await _context.OnlineStudents!.Where(x => x.Email.ToUpper().CompareTo(email.ToUpper())==0).FirstOrDefaultAsync();
+           var u = await _context.OnlineStudents!.Where(x => x.Email!.ToUpper().CompareTo(email.ToUpper())==0).FirstOrDefaultAsync();
 
            if(u is null){
 

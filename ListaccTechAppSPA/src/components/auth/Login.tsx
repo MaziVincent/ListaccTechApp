@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useForm, SubmitHandler } from "react-hook-form";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,10 +8,12 @@ import useAuth from "../../hooks/useAuth";
 
 import axios from "../../api/axios";
 
-const Login_Url = "/api/Auth/Login";
+const Login_Url = "/Auth/Login";
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  //const from = location.pathname || "/"
   const { auth, setAuth } = useAuth();
   const [errorMsg, setErrorMsg] = useState("");
   interface Login {
@@ -32,8 +34,8 @@ const Login = () => {
 
     try {
       const response = await axios.post(Login_Url, JSON.stringify(data), {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: false,
+        headers: { "Content-Type": "application/json" }
+        
       });
       // console.log(JSON.stringify(response.data));
 
@@ -42,7 +44,7 @@ const Login = () => {
       setAuth(response.data);
       switch (response.data.currentUser.role) {
         case "Admin":
-          navigate("/admin");
+          navigate("/Admin");
           break;
         case "OnlineStudent":
           navigate("/Dashboard");
