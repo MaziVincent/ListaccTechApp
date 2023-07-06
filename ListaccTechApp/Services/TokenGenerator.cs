@@ -44,7 +44,7 @@ namespace ListaccTechApp.Services
             var tokenDescriptor = new SecurityTokenDescriptor{
                 Subject = new ClaimsIdentity(tokenClaims),
                 SigningCredentials = credentials,
-                Expires = DateTime.Now.AddDays(7)
+                Expires = DateTime.Now.AddDays(1)
             };
             var tokenHandler = new JwtSecurityTokenHandler();
             var token =  tokenHandler.CreateToken(tokenDescriptor);
@@ -67,12 +67,14 @@ namespace ListaccTechApp.Services
         public string GenerateRefreshToken()
         {
             var randomNumber = new byte[32];
+            
            using (var rng = System.Security.Cryptography.RandomNumberGenerator.Create())
             {
                 rng.GetBytes(randomNumber);
                 return Convert.ToBase64String(randomNumber);
             }
         }
+
 
         public ClaimsPrincipal? GetClaimsPrincipal(string token) {
 

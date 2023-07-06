@@ -47,7 +47,8 @@ namespace ListaccTechApp.Controllers
             
         }
         // ListaccTechApp/Auth/Login
-        [HttpPost("Login")]
+        [HttpPost]
+        [Route("Login")]
         public async Task<IActionResult> Login(UserLogin login){
 
             if(!ModelState.IsValid){
@@ -80,12 +81,12 @@ namespace ListaccTechApp.Controllers
                         JwtId = tokenString.Jwt_Id,
                         IsUsed = false,
                         AddedDate = DateTime.UtcNow,
-                        ExpiryDate = DateTime.UtcNow.AddHours(1),
+                        ExpiryDate = DateTime.UtcNow.AddDays(7),
                         Token = _tokenGenerator.GenerateRefreshToken()
                     };
                     await _context.AddAsync(refreshToken);
                   
-                   
+                   SetRefreshToken(refreshToken);
                    // _context.Users.Update(currentUser);
 
                     await _context.SaveChangesAsync();
@@ -108,7 +109,6 @@ namespace ListaccTechApp.Controllers
 
                         token = tokenString.TokenString,
                         expires_at = tokenString.Expire_At,
-                        refreshToken = refreshToken.Token,
                         currentUser = theCurrentUser
 
                     };
@@ -124,6 +124,17 @@ namespace ListaccTechApp.Controllers
 
             
 
+        }
+
+         public void SetRefreshToken(RefreshToken refreshToken){
+
+            var cookieOptions = new CookieOptions{
+
+                HttpOnly = true,
+                Expires = refreshToken.ExpiryDate
+            };
+
+            Response.Cookies.Append("refreshToken",refreshToken.Token!, cookieOptions);
         }
 
         [HttpPost("GoogleAuth")]
@@ -198,42 +209,44 @@ namespace ListaccTechApp.Controllers
         [HttpPost]
         [Route("RefreshToken")]
 
-        public async Task<IActionResult> RefreshToken([FromBody] TokenModel token) {
+        public async Task<IActionResult> RefreshToken() {
 
-            if (!ModelState.IsValid) {
+            var refreshToken = Request.Cookies["refreshToken"];
+            
+            if (refreshToken is null) {
 
-                return BadRequest("Invalid Request");
+                return BadRequest("Invalid Request or refresh Token");
             }
 
-            string? accessToken = token.Token;
-            string? refreshToken = token.RefreshToken;
+             var savedRefreshToken = await _context.RefreshTokens.Where(u => u.Token!.Equals(refreshToken)).FirstOrDefaultAsync();
+            var user = await _context.Users.Where(u => u.Id == savedRefreshToken!.UserId).FirstOrDefaultAsync();
 
-            var principal = _tokenGenerator.GetClaimsPrincipal(accessToken!);
-            string email = principal!.Identity!.Name!;
-            var user = await _context.Users.Where(u => u.Email == email).FirstOrDefaultAsync();
-            var savedRefreshToken = await _context.RefreshTokens.Where(u => u.UserId == user!.Id).OrderBy(u => u.AddedDate).LastOrDefaultAsync();
-            if (user == null || savedRefreshToken!.Token != refreshToken || savedRefreshToken.ExpiryDate <= DateTime.UtcNow) {
+            //var principal = _tokenGenerator.GetClaimsPrincipal(accessToken!);
+            //string email = principal!.Identity!.Name!;
+            //var user = await _context.Users.Where(u => u.Email == email).FirstOrDefaultAsync();
+            //var savedRefreshToken = await _context.RefreshTokens.Where(u => u.UserId == user!.Id).OrderBy(u => u.AddedDate).LastOrDefaultAsync();
+            if (user == null || savedRefreshToken!.Token is null || savedRefreshToken.ExpiryDate <= DateTime.UtcNow) {
 
                 return BadRequest("invalid access token or refresh token");
             }
 
             var newAccessToken = await _tokenGenerator.GenerateToken(user.Email!, user.Id,user.GetType().ToString());
-            var generatedRefreshToken = _tokenGenerator.GenerateRefreshToken();
-            var newRefreshToken = new RefreshToken()
-            {
+            // var generatedRefreshToken = _tokenGenerator.GenerateRefreshToken();
+            // var newRefreshToken = new RefreshToken()
+            // {
 
-                Token = generatedRefreshToken,
-                UserId = user.Id,
-                User = user,
-                JwtId = newAccessToken.Jwt_Id,
-                IsUsed = false,
-                AddedDate = DateTime.UtcNow,
-                ExpiryDate = DateTime.UtcNow.AddHours(1),
+            //     Token = generatedRefreshToken,
+            //     UserId = user.Id,
+            //     User = user,
+            //     JwtId = newAccessToken.Jwt_Id,
+            //     IsUsed = false,
+            //     AddedDate = DateTime.UtcNow,
+            //     ExpiryDate = DateTime.UtcNow.AddHours(1),
 
 
-            };
+            // };
            
-            await _context.AddAsync(newRefreshToken);
+            // await _context.AddAsync(newRefreshToken);
            // _context.Users.Update(user);
             await _context.SaveChangesAsync();
 
@@ -241,8 +254,6 @@ namespace ListaccTechApp.Controllers
             {
                 accessToken = newAccessToken.TokenString,
                 expires_at = newAccessToken.Expire_At,
-                
-                refreshToken = newRefreshToken.Token
             };
 
             return Ok(returnToken);

@@ -1,16 +1,18 @@
 import axios from "./axios";
 import baseURL from './BaseURL'
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 
 const useFetchData = () => {
 
     const axiosPrivate = useAxiosPrivate(); 
+    const navigate = useNavigate();
+    const location = useLocation()
     
     const fetchData = async (url:string, token:string) => {
-
-    
+        debugger
  
      const controller = new AbortController();
      let errors:any; 
@@ -18,7 +20,7 @@ const useFetchData = () => {
 
 
      try{
-         const response = await axiosPrivate.get(baseURL + url,{
+         const response = await axios.get(url,{
              signal:controller.signal,
              headers:{
               Authorization: `Bearer ${token}`
@@ -32,7 +34,7 @@ const useFetchData = () => {
 
      }catch(error:any){
        errors = error;
- 
+        navigate('/Login',{state:{from: location}, replace:true })
          console.log(error)
 
 

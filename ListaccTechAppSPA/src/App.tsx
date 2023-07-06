@@ -6,7 +6,6 @@ import AdminHome from "./components/admin_panel/main_components/AdminHome";
 import LearningPathDetails from "./components/home/LearningPathDetails";
 import Main from "./components/home/Main";
 import HomeLayout from "./components/home/HomeLayout";
-import Landing from './components/admin_panel/main_components/Dashboard'
 import AdminLearningPath from "./components/admin_panel/main_components/AdminLearningPath";
 import AdminModule from './components/admin_panel/main_components/AdminModule'
 import Login from "./components/auth/Login";
@@ -16,6 +15,8 @@ import { QueryClientProvider } from 'react-query';
 import Page404 from "./components/shared/404";
 import UnAuthorized from "./components/shared/UnAuthorized";
 import Dashboard from "./components/admin_panel/main_components/Dashboard";
+import PersistLogin from "./components/auth/PersistLogin";
+
 
 function App() {
 
@@ -31,14 +32,20 @@ function App() {
         <div className=' box-border '>
           <Routes>
 
-            <Route element={<RequireAuth allowedRole={roles.admin} />}>
-              
-              {/* admin routes */}
-              <Route path='/Admin' element={<AdminHome />}>
-                <Route path='/Admin/LearningPaths' element={<AdminLearningPath />} />
-                <Route path='/Admin/modules' element={<AdminModule />} />
-                <Route index element={<Dashboard />} />
-              </Route>
+
+            {/* Protected Routes */}
+            <Route element={<PersistLogin />} >
+                <Route element={<RequireAuth allowedRole={roles.admin} />}>
+                  
+                  {/* admin routes */}
+                  <Route path='/Admin' element={<AdminHome />}>
+                    <Route path='/Admin/LearningPaths' element={<AdminLearningPath />} />
+                    <Route path='/Admin/modules' element={<AdminModule />} />
+                    <Route index element={<Dashboard />} />
+                  </Route>
+
+
+                </Route>
             </Route>
 
 
