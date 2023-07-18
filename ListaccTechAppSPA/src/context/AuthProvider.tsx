@@ -1,14 +1,24 @@
 import { createContext,useState } from "react";
+import user from "../models/user";
 
 type userContextState ={
-    auth:{currentUser:any, token:string, expires_at:string } ;
+    auth:{ token:string, expires_at:string,currentUser:user, } ;
     setAuth:( data:any) => void
 }
 
 
 const values:userContextState = {
 
-    auth:{currentUser:{}, token:"", expires_at:"" },
+    auth:{ token:"", expires_at:"", currentUser:{
+        id:0,
+        firstName:"",
+        lastName:"",
+        gender:"",
+        phoneNumber:"",
+        email:"",
+        status:true,
+        role:""
+    }, },
     setAuth:() =>{}
 }
 type ContextProviderProps = {

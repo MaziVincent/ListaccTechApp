@@ -6,6 +6,7 @@ const RequireAuth = ({allowedRole}:any) => {
     const location = useLocation();
 
     return ( 
+        
         auth.currentUser.role === allowedRole
         ? <Outlet />
         :auth.currentUser
@@ -13,5 +14,6 @@ const RequireAuth = ({allowedRole}:any) => {
         :<Navigate to="/Login" state={{from:location}} replace />
      );
 }
+
  
 export default RequireAuth;

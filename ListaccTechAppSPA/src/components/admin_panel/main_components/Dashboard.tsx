@@ -14,6 +14,9 @@ import useAuth from "../../../hooks/useAuth";
 import Pagination from '@mui/material/Pagination';
 import { useLocation } from 'react-router-dom';
 import TopMenu from '../sub_components/TopMenu';
+import { ToastContainer, toast } from "react-toastify";
+import { useForm, SubmitHandler } from "react-hook-form";
+import "react-toastify/dist/ReactToastify.css";
 
 
 
@@ -45,10 +48,12 @@ const Dashboard = () => {
    const getData = async (query:any) => {
     const {queryKey} = query
 
-    const response =  await Fetch(dataUrl, auth.token)
-    debugger
-    const result = await Fetch(`${url}&PageNumber=${queryKey[1]}&SearchString=${searchString}`, auth.token)
+    //console.log(queryKey)
+
     
+    
+    const result = await Fetch(`${url}&PageNumber=${queryKey[1]}&SearchString=${queryKey[2]}`, auth.token)
+    const response =  await Fetch(dataUrl, auth.token)
     
 
     if(result.data){
@@ -57,7 +62,7 @@ const Dashboard = () => {
       setError(false)
       setSuccess(true);
 
-      console.log(result.data)
+     // console.log(result.data)
      return {students:result.data, dataCount:response.data};
     }
 
@@ -66,7 +71,7 @@ const Dashboard = () => {
       setSuccess(false);
       setIsLoading(false)
       setError(true)
-
+      toast.error("Error Loading Data");
       return result.errors
 
     }
@@ -85,7 +90,7 @@ const Dashboard = () => {
 
    
    const {data, status} = useQuery(
-      ['students',page], 
+      ['students',page, searchString], 
       getData,
       {keepPreviousData:true, staleTime:5000} )
 
@@ -96,7 +101,7 @@ const Dashboard = () => {
    // handle student search
 
    const handleSearch = (event:any) =>{
-    console.log(event.target.value)
+   // console.log(event.target.value)
     setSearchString(event.target.value)
 
   }
@@ -112,6 +117,7 @@ const Dashboard = () => {
     
     <div className='flex flex-col items-start  w-full h-full gap-8 px-6 py-5'>
        <TopMenu location={pathName} />
+       <ToastContainer />
       
       <div className="flex flex-row w-full  justify-center lg:justify-start  items-center flex-wrap lg:flex-nowrap   gap-5">
           

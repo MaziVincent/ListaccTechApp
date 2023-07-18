@@ -97,7 +97,7 @@ const AdminLearningPath = () => {
         
         return (
           <div className='flex flex-col items-center  w-full h-screen gap-8 px-6 py-5' >
-            <ToastContainer />
+            {/* <ToastContainer />
             <div className="flex flex-col border-b-4 border-purple-200 gap-2 items-center justify-center shadow-md bg-white  p-6 rounded-md">
                 <div className='flex justify-between w-full border-b-2 pb-4'>
                   <span> <ClassOutlinedIcon sx={{ color:purple[700]}} fontSize='large' /> </span>
@@ -118,7 +118,7 @@ const AdminLearningPath = () => {
               {/* Modal for creating learning path */}
     
               
-              <Modal
+              {/* <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
@@ -241,8 +241,8 @@ const AdminLearningPath = () => {
             
 
 
-          </div>
-            
+          </div> */}
+             
          
     
     

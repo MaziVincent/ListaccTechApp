@@ -34,12 +34,13 @@ const Login = () => {
 
     try {
       const response = await axios.post(Login_Url, JSON.stringify(data), {
-        headers: { "Content-Type": "application/json" }
+        withCredentials:true,
+        headers: { "Content-Type": "application/json",},
         
       });
       // console.log(JSON.stringify(response.data));
 
-      console.log(response.data);
+     // console.log(response.data);
 
       setAuth(response.data);
       switch (response.data.currentUser.role) {

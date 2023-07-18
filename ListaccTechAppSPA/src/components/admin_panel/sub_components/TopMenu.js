@@ -18,7 +18,7 @@ const TopMenu = ({location}) => {
       
        
       <span key="3" className="dark:text-gray-100">
-        {location[1] == 'Admin'?'Dashboard' : location[1]}
+        {location[1].toLowerCase() == 'admin' ? 'Dashboard' : location[1]}
       </span>,
     ];
   
