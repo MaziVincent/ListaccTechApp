@@ -15,6 +15,7 @@ using ListaccTechApp.Models;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ListaccTechApp.Controllers
 {
@@ -260,7 +261,22 @@ namespace ListaccTechApp.Controllers
 
 
 
-        }       
+        }
+
+        [HttpGet("LogOut")]
+        //[Authorize]
+        public IActionResult LogOut()
+        {
+            Response.Cookies.Delete("refreshToken", new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                Domain = "localhost"
+
+            });
+            return Ok("Logout Successfully");
+        }
     }
 }
 

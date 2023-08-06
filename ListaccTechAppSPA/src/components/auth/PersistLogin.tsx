@@ -12,10 +12,11 @@ const PersistLogin = () => {
 
     const [isLoading, setIsLoading] = useState(true)
     const refresh = useRefreshToken();
-    const {auth} = useAuth()
+    const {auth, persist} = useAuth()
 
     useEffect(()=> {
 
+        //let isMounted = true;
         const verifyRefreshToken = async ()=> {
 
             try{
@@ -29,6 +30,7 @@ const PersistLogin = () => {
             }
         }
         !auth?.token ? verifyRefreshToken() : setIsLoading(false)
+        //return () => isMounted = false;
     }, [])
 
     useEffect(() => {
@@ -41,6 +43,8 @@ const PersistLogin = () => {
     return ( <>
 
         {
+            !persist 
+            ? <Outlet /> :
             isLoading ? <p className="flex items-center justify-center p-20"> <CircularProgress color="success" /> </p>
             : <Outlet />
         }

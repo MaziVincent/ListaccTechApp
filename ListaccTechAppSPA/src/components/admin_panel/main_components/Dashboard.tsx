@@ -15,6 +15,7 @@ import Pagination from '@mui/material/Pagination';
 import { useLocation } from 'react-router-dom';
 import TopMenu from '../sub_components/TopMenu';
 import { ToastContainer, toast } from "react-toastify";
+import Table from '../sub_components/Table';
 import { useForm, SubmitHandler } from "react-hook-form";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -80,7 +81,7 @@ const Dashboard = () => {
    }
 
   const handleChange = (event:any, value:number) => {
-
+    
    setPage(value)
     
   } 
@@ -95,7 +96,7 @@ const Dashboard = () => {
       {keepPreviousData:true, staleTime:5000} )
 
 
-     //console.log(data.students)
+     console.log(data)
      //console.log(data.dataCount)
 
    // handle student search
@@ -106,7 +107,7 @@ const Dashboard = () => {
 
   }
 
-
+ 
 
   
    
@@ -209,46 +210,12 @@ const Dashboard = () => {
                         </th>
                     </tr>
                 </thead>
-                <tbody>
-                  {
-                    data.students?.returnedList.map((student:any)=>(
 
-                      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" key={student.id}>
-                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {student.firstName}
-                        </th>
-                        <td className="px-4 py-4">
-                            {student.lastName}
-                        </td>
-                        <td className="px-4 py-4">
-                            {student.gender}
-                        </td>
-                        <td className="px-4 py-4">
-                            {student.phoneNumber}
-                        </td>
-                        <td className="px-4 py-4 text-right flex gap-3 justify-end">
-                            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                            <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline">Deactivate</a>
-                        </td>
-                        
-                    </tr>
-
-                    )
+                <Table value={data.students} page={page} handleChange={handleChange} />
 
 
-                    )
-                  }
-                    
-                    
-                    <tr>
-                        
-                            <td colSpan={3}  className='py-4'>
-                                 <Pagination count={data.students?.data?.totalPages } page={page} onChange={handleChange} variant="outlined" shape="rounded" className='dark:bg-gray-300 ' />
-                            </td>
-                      </tr>        
-                </tbody>
-            </table>
-  
+                </table>
+   
 
               )
             }

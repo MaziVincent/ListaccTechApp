@@ -3,7 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { useForm, SubmitHandler } from "react-hook-form";
 import "react-toastify/dist/ReactToastify.css";
 import logo from "../../assets/images/LogoTrans2.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 
 import axios from "../../api/axios";
@@ -14,7 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   //const from = location.pathname || "/"
-  const { auth, setAuth } = useAuth();
+  const { auth, setAuth, persist, setPersist } = useAuth();
   const [errorMsg, setErrorMsg] = useState("");
   interface Login {
     EmailAddress: String;
@@ -91,6 +91,17 @@ const Login = () => {
 
     // console.log(data);
   };
+
+  const togglePersist = () => {
+
+    setPersist((prev:boolean) => !prev);
+  }
+
+
+  useEffect(() => {
+
+    localStorage.setItem("persist", String(persist));
+  },[persist])
 
   return (
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -178,6 +189,7 @@ const Login = () => {
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
+                onChange={togglePersist}
                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
               />
               <label

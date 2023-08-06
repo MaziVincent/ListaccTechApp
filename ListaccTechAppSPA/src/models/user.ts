@@ -9,8 +9,13 @@ type user = {
     phoneNumber:string,
     gender:string,
     status:boolean,
-    role:string
+    role?:string
 
+}
+
+export interface student extends user  {
+
+    dateOfBirth:string
 }
 
 export default user;

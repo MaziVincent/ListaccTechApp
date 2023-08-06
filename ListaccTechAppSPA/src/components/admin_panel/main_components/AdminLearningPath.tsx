@@ -16,10 +16,11 @@ import ErrorIcon from '@mui/icons-material/Error';
 import Pagination from '@mui/material/Pagination';
 import useAuth from "../../../hooks/useAuth";
 import baseURL from '../../../api/BaseURL';
+import LearningPath from '../../../models/learningPath';
 
 
 
-const url =  `${baseURL}/LearningPath/`;
+const url =  `${baseURL}LearningPath/`;
 
 
 
@@ -33,7 +34,7 @@ const AdminLearningPath = () => {
 
   const fetchLearningPaths = async (query:any) =>{  
   
-  const learningPathsData = fetchData(`${url}GetAll?PageNumber=${query.queryKey[1]}`,auth.token );
+  const learningPathsData = fetchData(`${url}GetAll`,auth.token );
   
   return learningPathsData;
   
@@ -50,12 +51,7 @@ const AdminLearningPath = () => {
     const formData = new FormData();
     
 
-    interface LearningPath {
-      Name:string,
-      Description:string,
-      LearningPathAvatar:any
     
-    }
     
       const {register, handleSubmit, formState:{errors}} = useForm<LearningPath>({});
     
@@ -164,7 +160,7 @@ const AdminLearningPath = () => {
                     </div>
                   </div>
                 </div>
-              </Modal>
+        </Modal> */}
     
     
             {
@@ -241,12 +237,12 @@ const AdminLearningPath = () => {
             
 
 
-          </div> */}
+          </div> 
              
          
     
     
-          </div>
+          
         )
     }
      
