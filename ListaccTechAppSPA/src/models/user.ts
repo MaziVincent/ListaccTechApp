@@ -13,7 +13,7 @@ type user = {
 
 }
 
-export interface student extends user  {
+export type student =  user  & {
 
     dateOfBirth:string
 }

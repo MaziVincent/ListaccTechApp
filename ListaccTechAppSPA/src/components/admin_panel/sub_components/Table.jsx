@@ -5,15 +5,9 @@ import { useNavigate } from 'react-router-dom';
 const Table = ({value, page, handleChange}) => {
 
    const {returnedList, data} = value
-   const navigate = useNavigate();
+  
    
-   const viewStudent = (id) =>{
-       
-                navigate(`/Admin/Student/${id}`);
-
-   }
-        
-
+ 
 
 
     return ( 

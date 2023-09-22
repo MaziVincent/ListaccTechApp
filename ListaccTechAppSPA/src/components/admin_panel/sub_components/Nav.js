@@ -10,7 +10,7 @@ const Nav = () => {
   return (
   
         <aside
-          className='sidebar w-50  min-h-screen  dark:bg-gray-800 md:block sm: z-10 rounded'
+          className='sidebar w-50  dark:bg-gray-800 md:block sm: z-10 rounded'
           aria-label='Sidebar'
         >
           <div className='overflow-y-auto py-4 px-3 max-h-full'>

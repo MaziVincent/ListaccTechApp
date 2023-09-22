@@ -30,7 +30,7 @@ function App() {
   
   return (
     <QueryClientProvider client={queryClient}>
-        <div className=' box-border '>
+        <div className=' box-border  '>
           <Routes>
 
 

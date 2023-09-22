@@ -18,7 +18,7 @@ const TopHeader = () => {
 
   return ( 
     <>
-      <div className='fixed w-full bg-[#111827] text-white flex items-center top-0 '>
+      <div className='sticky w-full bg-[#111827] text-white flex items-center top-0 '>
         <div className='h-1/12 w-11/12 px-4 py-2 flex justify-between'>
           <Link to='/'  >
             <img src={Logo} alt='logo' className=' h-12 md:h-14' /> 
