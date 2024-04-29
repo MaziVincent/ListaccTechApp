@@ -52,7 +52,7 @@ const Login = () => {
           break;
         default:
           toast.error("An error Occured During Login");
-      }
+      } 
     } catch (error: any) {
       console.log(error);
       if (!error.response) {

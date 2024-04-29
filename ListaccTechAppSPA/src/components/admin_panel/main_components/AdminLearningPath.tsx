@@ -188,14 +188,15 @@ const AdminLearningPath = () => {
                       />
                       <span className="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span>
                     </div>
-                    
-                      <div className="font-medium text-center ">
-                        {learningPath.name}
-                      </div>
-                    
+
+                    <div className="font-medium text-center ">
+                      {learningPath.name}
+                    </div>
                   </th>
 
-                  <td className="px-6 py-4 text-center">{learningPath.description}</td>
+                  <td className="px-6 py-4 text-center">
+                    {learningPath.description}
+                  </td>
 
                   <td className=" px-6  py-4 text-center ">
                     <a
@@ -245,8 +246,6 @@ const AdminLearningPath = () => {
           <ErrorIcon sx={{ fontSize: 60, color: red }} />
         </div>
       )}
-
-     
     </div>
   );
 };

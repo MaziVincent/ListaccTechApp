@@ -70,6 +70,7 @@ namespace ListaccTechApp.Controllers
                 var passwordHash = Hash.Create(pmessage!, currentUser.salt!);
 
                 if(currentUser.PasswordHash!.CompareTo(passwordHash)==0){
+                    
 
                     //gets the type of user
                     var type = _oService.Strip(currentUser.GetType().ToString());
