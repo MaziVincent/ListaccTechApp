@@ -15,6 +15,7 @@ using ListaccTechApp.Models;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ListaccTechApp.Controllers
 {
@@ -49,7 +50,7 @@ namespace ListaccTechApp.Controllers
         // ListaccTechApp/Auth/Login
         [HttpPost]
         [Route("Login")]
-        public async Task<IActionResult> Login(UserLogin login){
+        public async Task<IActionResult> Login([FromBody]UserLogin login){
 
             if(!ModelState.IsValid){
 
@@ -69,6 +70,7 @@ namespace ListaccTechApp.Controllers
                 var passwordHash = Hash.Create(pmessage!, currentUser.salt!);
 
                 if(currentUser.PasswordHash!.CompareTo(passwordHash)==0){
+                    
 
                     //gets the type of user
                     var type = _oService.Strip(currentUser.GetType().ToString());
@@ -126,12 +128,15 @@ namespace ListaccTechApp.Controllers
 
         }
 
-         public void SetRefreshToken(RefreshToken refreshToken){
+         protected void SetRefreshToken(RefreshToken refreshToken){
 
             var cookieOptions = new CookieOptions{
 
                 HttpOnly = true,
-                Expires = refreshToken.ExpiryDate
+                Expires = refreshToken.ExpiryDate,
+               Secure = true,
+                SameSite = SameSiteMode.None,
+                Domain = "localhost"
             };
 
             Response.Cookies.Append("refreshToken",refreshToken.Token!, cookieOptions);
@@ -206,60 +211,77 @@ namespace ListaccTechApp.Controllers
         }
 
         //Refresh token
-        [HttpPost]
+        [HttpGet]
         [Route("RefreshToken")]
 
         public async Task<IActionResult> RefreshToken() {
 
             var refreshToken = Request.Cookies["refreshToken"];
-            
-            if (refreshToken is null) {
+
+            if (refreshToken is null)
+            {
 
                 return BadRequest("Invalid Request or refresh Token");
             }
 
-             var savedRefreshToken = await _context.RefreshTokens.Where(u => u.Token!.Equals(refreshToken)).FirstOrDefaultAsync();
+            var savedRefreshToken = await _context.RefreshTokens.Where(u => u.Token!.Equals(refreshToken)).FirstOrDefaultAsync();
             var user = await _context.Users.Where(u => u.Id == savedRefreshToken!.UserId).FirstOrDefaultAsync();
 
-            //var principal = _tokenGenerator.GetClaimsPrincipal(accessToken!);
-            //string email = principal!.Identity!.Name!;
-            //var user = await _context.Users.Where(u => u.Email == email).FirstOrDefaultAsync();
-            //var savedRefreshToken = await _context.RefreshTokens.Where(u => u.UserId == user!.Id).OrderBy(u => u.AddedDate).LastOrDefaultAsync();
+         
             if (user == null || savedRefreshToken!.Token is null || savedRefreshToken.ExpiryDate <= DateTime.UtcNow) {
 
                 return BadRequest("invalid access token or refresh token");
             }
+            var type = _oService.Strip(user.GetType().ToString());
+            var newAccessToken = await _tokenGenerator.GenerateToken(user.Email!, user.Id,type);
 
-            var newAccessToken = await _tokenGenerator.GenerateToken(user.Email!, user.Id,user.GetType().ToString());
-            // var generatedRefreshToken = _tokenGenerator.GenerateRefreshToken();
-            // var newRefreshToken = new RefreshToken()
-            // {
-
-            //     Token = generatedRefreshToken,
-            //     UserId = user.Id,
-            //     User = user,
-            //     JwtId = newAccessToken.Jwt_Id,
-            //     IsUsed = false,
-            //     AddedDate = DateTime.UtcNow,
-            //     ExpiryDate = DateTime.UtcNow.AddHours(1),
-
-
-            // };
-           
-            // await _context.AddAsync(newRefreshToken);
-           // _context.Users.Update(user);
             await _context.SaveChangesAsync();
+
+            var theCurrentUser = new CurrentUser()
+            {
+
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Gender = user.Gender,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Status = user.Status,
+                Role = _oService.Strip(user.GetType().ToString())
+
+            };
 
             var returnToken = new
             {
-                accessToken = newAccessToken.TokenString,
+                token = newAccessToken.TokenString,
                 expires_at = newAccessToken.Expire_At,
+                currentUser = theCurrentUser
             };
 
             return Ok(returnToken);
 
 
 
-        }       
+        }
+
+        [HttpGet("LogOut")]
+        //[Authorize]
+        public IActionResult LogOut()
+        {
+            Response.Cookies.Delete("refreshToken", new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.None,
+                Domain = "localhost"
+
+            });
+            return Ok("Logout Successfully");
+        }
     }
 }
+
+//var principal = _tokenGenerator.GetClaimsPrincipal(accessToken!);
+//string email = principal!.Identity!.Name!;
+//var user = await _context.Users.Where(u => u.Email == email).FirstOrDefaultAsync();
+//var savedRefreshToken = await _context.RefreshTokens.Where(u => u.UserId == user!.Id).OrderBy(u => u.AddedDate).LastOrDefaultAsync();

@@ -16,6 +16,7 @@ import Page404 from "./components/shared/404";
 import UnAuthorized from "./components/shared/UnAuthorized";
 import Dashboard from "./components/admin_panel/main_components/Dashboard";
 import PersistLogin from "./components/auth/PersistLogin";
+import ViewStudent from "./components/admin_panel/main_components/students/ViewStudent";
 
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
   
   return (
     <QueryClientProvider client={queryClient}>
-        <div className=' box-border '>
+        <div className=' box-border  '>
           <Routes>
 
 
@@ -42,6 +43,7 @@ function App() {
                     <Route path='/Admin/LearningPaths' element={<AdminLearningPath />} />
                     <Route path='/Admin/modules' element={<AdminModule />} />
                     <Route index element={<Dashboard />} />
+                    <Route path="/Admin/Student/:id" element={<ViewStudent />} />
                   </Route>
 
 

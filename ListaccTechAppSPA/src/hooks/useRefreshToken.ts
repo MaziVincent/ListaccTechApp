@@ -8,19 +8,17 @@ const useRefreshToken = () => {
 
     const refresh = async () => {
 
-        const response = await axios.post('/Auth/RefreshToken',{
+        const response = await axios.get('/Auth/RefreshToken',{
             withCredentials:true,
+            headers: {"Access-Control-Allow-Origin":"*", "Content-Type": "application/json",},
+            //credentials: "include",
             
         });
-        setAuth((prev:any) =>{
 
-            // console.log(JSON.stringify(prev));
-            // console.log(response.data.accessToken);
-            // console.log(response.data.refreshToken);
-            return {token:response.data.accessToken,expires_at:response.data.expires_at};
-        })
-    console.log(auth);
-    return response.data.accessToken;
+        console.log(response.data);
+        setAuth(response.data);
+   
+    return response.data.token;
     } 
 
     return refresh;

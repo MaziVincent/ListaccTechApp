@@ -8,6 +8,8 @@ using ListaccTechApp.ViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
+using ListaccTechApp.Models;
 
 namespace ListaccTechApp.Controllers
 {
@@ -74,20 +76,29 @@ namespace ListaccTechApp.Controllers
             }
         }
 
-        [Authorize]
+       [Authorize]
         [HttpGet("Get/{id}")]
         public async Task<IActionResult> GetStudent(int Id){
 
             try{
                 var student = await _stdService.GetStudent(Id);
-                if(student == null ){
+                if(student is null ){
 
                     return NoContent();
                 }
-
+                var learningPaths = Enumerable.Empty<LearningPathStudent>();
+                if(student.LearningPathStudents is not null)
+                {
+                    learningPaths = student.LearningPathStudents!.Where(lp => lp.Online_StudentId == student.Id);
+                }
+                
+                
                 var result = _mapper.Map<StudentDto>(student);
-
-                return Ok(result);
+                
+                return Ok(new {
+                    result,
+                    learningPaths
+                });
 
             } catch(Exception ex){
 

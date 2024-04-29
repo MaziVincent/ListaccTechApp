@@ -1,15 +1,29 @@
 import { createContext,useState } from "react";
+import user from "../models/user";
 
 type userContextState ={
-    auth:{currentUser:any, token:string, expires_at:string } ;
+    auth:{ token:string, expires_at:string,currentUser:user, } ;
     setAuth:( data:any) => void
+    persist:boolean
+    setPersist:( data:any) => void
 }
 
 
 const values:userContextState = {
 
-    auth:{currentUser:{}, token:"", expires_at:"" },
-    setAuth:() =>{}
+    auth:{ token:"", expires_at:"", currentUser:{
+        id:0,
+        firstName:"",
+        lastName:"",
+        gender:"",
+        phoneNumber:"",
+        email:"",
+        status:true,
+        role:""
+    }, },
+    setAuth:() =>{},
+    persist: JSON.parse(localStorage.getItem("persist")! ) || false,
+    setPersist:() =>{}
 }
 type ContextProviderProps = {
     children:React.ReactNode
@@ -19,12 +33,14 @@ type ContextProviderProps = {
 
 export const AuthProvider  = ({children}:ContextProviderProps) => {
     const [auth, setAuth] = useState(values.auth);
+    const [persist, setPersist] = useState(values.persist);
+
     
     //console.log(auth.expires_at)
     
     return (
         
-        <AuthContext.Provider value={{auth,setAuth}}> {children} </AuthContext.Provider>
+        <AuthContext.Provider value={{auth,setAuth, persist, setPersist}}> {children} </AuthContext.Provider>
 
         
         
